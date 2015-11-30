@@ -23,9 +23,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.flightField.delegate = self;
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
-    }
+    //override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        //return UIStatusBarStyle.LightContent
+    //}
     
     
     
