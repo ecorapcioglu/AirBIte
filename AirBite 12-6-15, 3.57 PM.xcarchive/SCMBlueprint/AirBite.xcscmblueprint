@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintLocationsKey" : {
+    "1D40E048F6CA76526DF24AA2C80BDA6376083507" : {
+      "DVTSourceControlBranchIdentifierKey" : "master",
+      "DVTSourceControlLocationRevisionKey" : "7317bd4cbd1db32698dc8807d00ee823d88d2402",
+      "DVTSourceControlBranchOptionsKey" : 4,
+      "DVTSourceControlWorkspaceBlueprintLocationTypeKey" : "DVTSourceControlBranch"
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1D40E048F6CA76526DF24AA2C80BDA6376083507",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7107274B-0DC2-41ED-9A48-C9F45312FAC9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1D40E048F6CA76526DF24AA2C80BDA6376083507" : "AirBIte\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AirBite",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AirBite.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ecorapcioglu\/AirBIte.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1D40E048F6CA76526DF24AA2C80BDA6376083507"
+    }
+  ]
+}
