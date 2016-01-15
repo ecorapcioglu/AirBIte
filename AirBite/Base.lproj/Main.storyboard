@@ -25,15 +25,6 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airport" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-Qt-8ja" userLabel="AirportTextField">
-                                <rect key="frame" x="188" y="150" width="224" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="224" id="Z1s-06-sEc"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airline" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvO-1z-Id7" userLabel="AirlineTextField">
                                 <rect key="frame" x="188" y="188" width="224" height="30"/>
                                 <constraints>
@@ -61,6 +52,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Search"/>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airport" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-Qt-8ja" userLabel="AirportTextField" customClass="AutoCompleteTextField" customModule="AirBite" customModuleProvider="target">
+                                <rect key="frame" x="188" y="150" width="224" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="rGj-7O-iQp"/>
+                                    <constraint firstAttribute="width" constant="224" id="vmo-62-kCG"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -80,7 +81,7 @@
                     </view>
                     <connections>
                         <outlet property="airlineField" destination="CvO-1z-Id7" id="kSu-MV-A4P"/>
-                        <outlet property="airportField" destination="ELq-Qt-8ja" id="Dw5-DX-UFw"/>
+                        <outlet property="airportField" destination="ELq-Qt-8ja" id="etH-xo-3mN"/>
                         <outlet property="flightField" destination="Qqf-xE-mgQ" id="z9Z-sa-JEj"/>
                     </connections>
                 </viewController>
