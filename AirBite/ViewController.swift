@@ -151,11 +151,26 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                    // if status == "OK"{
                         if let predictions = result["airports"] as? NSArray{
                             var locations = [String]()
+                            //var locations2 = [String]()
+                            //var locations3 = [String]()
+                            var locations4 = [String]()
+                            var locations5 = [String]()
                             for dict in predictions as! [NSDictionary]{
-                                locations.append(dict["name"] as! String)
-                                
+                                locations.append(dict["iata"] as! String)
+                                //locations2.append(dict["city"] as! String)
+                                //locations3.append(dict["stateCode"] as! String)
+                                locations4.append(dict["name"] as! String)
                             }
-                            self.airportField.autoCompleteStrings = locations
+                            
+                            for var index = 0; index < locations.count; ++index {
+                                locations5.append(locations[index] + "  " + locations4[index])
+                                //print("index is \(index)")
+                            }
+                            
+                            
+                            
+                            
+                            self.airportField.autoCompleteStrings = locations5
                             return
                         }
                     //}

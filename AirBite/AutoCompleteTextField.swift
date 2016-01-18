@@ -1,10 +1,3 @@
-//
-//  AutoCompleteTextField.swift
-//  AutocompleteTextfieldSwift
-//
-//  Created by Mylene Bayan on 6/13/15.
-//  Copyright (c) 2015 MaiLin. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -84,7 +77,7 @@ public class AutoCompleteTextField:UITextField, UITableViewDataSource, UITableVi
     }
     
     //MARK: - UITableViewDataSource
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView,numberOfRowsInSection section: Int) -> Int {
         return autoCompleteStrings != nil ? (autoCompleteStrings!.count > maximumAutoCompleteCount ? maximumAutoCompleteCount : autoCompleteStrings!.count) : 0
     }
     
