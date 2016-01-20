@@ -110,7 +110,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                 }
                 //let urlString = "\(self!.baseURLString)?key=\(self!.googleMapsKey)&input=\(text)"
                 
-                let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/cityCode/\(text)?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d"
+                let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/iata/\(text)?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d"
                 
                // let urlString = "\(self?.baseURLString)/countryCode/US?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d"
                

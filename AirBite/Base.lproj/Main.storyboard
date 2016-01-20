@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="Tbz-xI-YTq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="Tbz-xI-YTq">
                                 <rect key="frame" x="121" y="0.0" width="358" height="131"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirBite Demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyE-jC-b8m">
@@ -25,7 +25,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airline" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvO-1z-Id7" userLabel="AirlineTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airline" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CvO-1z-Id7" userLabel="AirlineTextField">
                                 <rect key="frame" x="188" y="188" width="224" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="224" id="zu7-Hc-mVS"/>
@@ -34,7 +34,7 @@
                                 <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Flight Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qqf-xE-mgQ" userLabel="AirlineTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Flight Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qqf-xE-mgQ" userLabel="AirlineTextField">
                                 <rect key="frame" x="188" y="226" width="224" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="224" id="jW7-sf-J4U"/>
@@ -43,7 +43,7 @@
                                 <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUO-Bs-JY3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUO-Bs-JY3">
                                 <rect key="frame" x="188" y="275" width="224" height="34"/>
                                 <color key="backgroundColor" red="0.61285975915228097" green="0.62190543354411443" blue="0.74035274621212122" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -52,7 +52,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Search"/>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airport" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-Qt-8ja" userLabel="AirportTextField" customClass="AutoCompleteTextField" customModule="AirBite" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Airport" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELq-Qt-8ja" userLabel="AirportTextField" customClass="AutoCompleteTextField" customModule="AirBite" customModuleProvider="target">
                                 <rect key="frame" x="188" y="150" width="224" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="rGj-7O-iQp"/>

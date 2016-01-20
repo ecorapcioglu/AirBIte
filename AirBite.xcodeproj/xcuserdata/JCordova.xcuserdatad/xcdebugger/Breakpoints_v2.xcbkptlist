@@ -128,5 +128,98 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AirBite/ViewController.swift"
+            timestampString = "474860811.025168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AirBite.ViewController.flightField.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "AirBite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JCordova/Documents/AirBIte/AirBite/ViewController.swift"
+                  timestampString = "474943721.856409"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AirBite.ViewController.flightField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "AirBite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JCordova/Documents/AirBIte/AirBite/ViewController.swift"
+                  timestampString = "474943721.856667"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AirBite.ViewController.flightField.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "AirBite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JCordova/Documents/AirBIte/AirBite/ViewController.swift"
+                  timestampString = "474943721.856855"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AirBite.ViewController.init (AirBite.ViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; AirBite.ViewController"
+                  moduleName = "AirBite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JCordova/Documents/AirBIte/AirBite/ViewController.swift"
+                  timestampString = "474943721.857044"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AirBite.ViewController.init (AirBite.ViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;AirBite.ViewController&gt;"
+                  moduleName = "AirBite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JCordova/Documents/AirBIte/AirBite/ViewController.swift"
+                  timestampString = "474943721.85723"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "148">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
