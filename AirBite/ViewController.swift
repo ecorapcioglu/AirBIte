@@ -17,6 +17,13 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     @IBOutlet weak var airlineField: UITextField!
     @IBOutlet weak var flightField: UITextField!
     
+    /************************************************
+    //outlet for table
+     I add this for the cell for search button outcome
+     
+    @IBOutlet weak var tableOutlet: UITableViewCell!
+    **********************************************************/
+    
     
     private var responseData:NSMutableData?
     private var connection:NSURLConnection?
@@ -45,6 +52,9 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         let tapGesture = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
+        
+        
+        
     }
     
     
@@ -52,9 +62,16 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    /************************************************************************
+    //codeing for search button
+     need to connect to the table
+     
+    @IBAction func SearchButton(sender: UIButton) {
+        let search = tableData.self
+        tableOutlet.text = "\(search)"
+    }
     
-    
-    
+    **************************************************************************/
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
@@ -99,7 +116,17 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         airportField.autoCompleteAttributes = attributes
     }
     
-    
+    func buttonPressed(sender: AnyObject){
+        let userInput = airportField.text
+        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+        
+        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        if url != nil{
+            let urlRequest = NSURLRequest(URL: url!)
+            self.connection = NSURLConnection(request: urlRequest, delegate: self)
+        }
+    }
     
     private func handleTextFieldInterfaces(){
         airportField.onTextChange = {[weak self] text in
