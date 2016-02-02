@@ -12,6 +12,10 @@ class TableViewController: UITableViewController {
     
     var dataPassed:String!
     var secondDataPassed:String!
+    var restaurants: [String] = []
+    
+    
+   // var restaurants: Array[String] = dataPassed
 
     @IBOutlet weak var text: UITextView!
 
@@ -20,9 +24,12 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        text.text = dataPassed
-        
+        //text.text = dataPassed
 
+        // this splits the restaurants list by comma and puts the list into an array.
+        // this will then let us use this array to return the restaurants individually to the table cell in tableView.
+         restaurants = dataPassed.componentsSeparatedByString(",")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,24 +49,27 @@ class TableViewController: UITableViewController {
         return 1
     }
 
+    /// This function returns the number of rows to be present in each table section (the number of sections
+    /// is set in numberOfSectionInTableView function.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 6
+        // we want to return the number of rows based on how many values are in the restaurants array.
+        return restaurants.count
     }
     
+    // This returns the title of the section
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section \(section)"
+        return "Restaurants"
     }
-    
-    
-    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("labelCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = "Section \(indexPath.row) Row \(indexPath.row)"
-
+        
+        
+        // return a value for each cell (text value) based on the values in the restuarnts array.
+        cell.textLabel?.text = restaurants[indexPath.row]
+        
         return cell
     }
     

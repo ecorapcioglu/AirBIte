@@ -227,7 +227,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                     }
                     
                     for var index = 0; index < locations.count; ++index{
-                        self.outputLabel.text = outputLabel.text + "\r\n" + locations[index];
+                        //self.outputLabel.text = outputLabel.text + "\r\n" + locations[index];
+                        self.outputLabel.text = outputLabel.text + "," + locations[index];
                     }
                     
                     return
