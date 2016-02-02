@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
 
     //@IBOutlet weak var airportField: AutoCompleteTextField!
     
+    @IBOutlet weak var outputLabel: UITextView!
     @IBOutlet weak var airportField: AutoCompleteTextField!
     
     @IBOutlet weak var airlineField: UITextField!
@@ -116,17 +117,34 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         airportField.autoCompleteAttributes = attributes
     }
     
-    func buttonPressed(sender: AnyObject){
-        let userInput = airportField.text
-        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+    
+    @IBAction func buttonPressed(sender: AnyObject) {
         
-        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
-        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        if url != nil{
-            let urlRequest = NSURLRequest(URL: url!)
-            self.connection = NSURLConnection(request: urlRequest, delegate: self)
-        }
+                let userInput = airportField.text
+                let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+        
+                let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+                let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+                if url != nil{
+                    let urlRequest = NSURLRequest(URL: url!)
+                    self.connection = NSURLConnection(request: urlRequest, delegate: self)
+                }
+        
+        
     }
+    
+    
+//    func buttonPressed(sender: AnyObject){
+//        let userInput = airportField.text
+//        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+//        
+//        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+//        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+//        if url != nil{
+//            let urlRequest = NSURLRequest(URL: url!)
+//            self.connection = NSURLConnection(request: urlRequest, delegate: self)
+//        }
+//    }
     
     private func handleTextFieldInterfaces(){
         airportField.onTextChange = {[weak self] text in
@@ -200,6 +218,21 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                             self.airportField.autoCompleteStrings = locations5
                             return
                         }
+                
+                if let predictions = result["objects"] as? NSArray{
+                    
+                    var locations = [String]()
+                    for dict in predictions as! [NSDictionary]{
+                        locations.append(dict["name"] as! String)
+                    }
+                    
+                    for var index = 0; index < locations.count; ++index{
+                        self.outputLabel.text = outputLabel.text + "\r\n" + locations[index];
+                    }
+                    
+                    return
+                    
+                }
                     //}
                 //}
                 //self.airportField.autoCompleteStrings = nil
@@ -217,9 +250,21 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         self.airportField.resignFirstResponder()
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "btnSubmitSegue") {
+            let svc = segue.destinationViewController as! TableViewController
+            
+            svc.dataPassed = outputLabel.text
+            //svc.secondDataPassed =
+            
+            
+        }
+
 
 
 
 
 }
-
+    
+}

@@ -2,7 +2,7 @@
 //  TableViewController.swift
 //  AirBite
 //
-//  Created by Eren Corapcioglu on 1/25/16.
+//  Created by Jose Cordova on 2/1/16.
 //  Copyright © 2016 Eren Corapcioglu. All rights reserved.
 //
 
@@ -10,14 +10,18 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    //var fixedRestaurants = ["Chilies","Jamba Juice","Starbucks", "TGIF"]
-    
-    //var countriesinEurope = ["France","Spain","Germany"]
-    //var countriesinAsia = ["Japan","China","India"]
-    //var countriesInSouthAmerica = ["Argentia","Brasil","Chile"]
+    var dataPassed:String!
+    var secondDataPassed:String!
+
+    @IBOutlet weak var text: UITextView!
+
+  
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        text.text = dataPassed
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,43 +39,30 @@ class TableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        // only returing one section for the time being.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        // only returing one section for the time being.
-        return 0
+        return 6
     }
-
     
-   /* override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        
-        static NSString *CellIdentifier = @"Cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
-       
-        return cell
-        
-        //let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-        
-        /*let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) //as! UITableViewCell
-        
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section \(section)"
+    }
+    
+    
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("labelCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        
-        switch (indexPath.section) {
-        case 0:
-            cell.textLabel?.text = fixedRestaurants[indexPath.row]
-        
-        default:
-            cell.textLabel?.text = "Other"
-        }
-        return cell*/
-    }*/
+        cell.textLabel?.text = "Section \(indexPath.row) Row \(indexPath.row)"
 
+        return cell
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
