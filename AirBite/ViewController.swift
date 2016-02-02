@@ -120,15 +120,16 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     
     @IBAction func buttonPressed(sender: AnyObject) {
         
-                let userInput = airportField.text
-                let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
         
-                let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
-                let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-                if url != nil{
-                    let urlRequest = NSURLRequest(URL: url!)
-                    self.connection = NSURLConnection(request: urlRequest, delegate: self)
-                }
+        let userInput = airportField.text
+        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+        
+        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        if url != nil{
+            let urlRequest = NSURLRequest(URL: url!)
+            self.connection = NSURLConnection(request: urlRequest, delegate: self)
+        }
         
         
     }
@@ -255,6 +256,10 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
+            
+
+
+            
             
             svc.dataPassed = outputLabel.text
             //svc.secondDataPassed =
