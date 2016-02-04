@@ -9,42 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDataDelegate {
-
-    //@IBOutlet weak var airportField: AutoCompleteTextField!
     
-    @IBOutlet weak var outputLabel: UITextView!
-    @IBOutlet weak var airportField: AutoCompleteTextField!
-    
-    @IBOutlet weak var airlineField: UITextField!
-    @IBOutlet weak var flightField: UITextField!
-    
-    /************************************************
-    //outlet for table
-     I add this for the cell for search button outcome
-     
-    @IBOutlet weak var tableOutlet: UITableViewCell!
-    **********************************************************/
+    @IBOutlet weak var outputLabel: UITextView!                 // Textview used for testing purposes
+    @IBOutlet weak var airportField: AutoCompleteTextField!     // Airport Text Field
+    @IBOutlet weak var airlineField: UITextField!               // Airline Text Field
+    @IBOutlet weak var flightField: UITextField!                // Flight Number Text Field
     
     
-    private var responseData:NSMutableData?
-    private var connection:NSURLConnection?
-    
-    var sampleList: [String] = ["Houston", "Shreveport", "Austin", "Dallas", "Miami", "New York", "Denver", "Tampa"]
-    //private let googleMapsKey = "AIzaSyDg2tlPcoqxx2Q2rfjhsAKS-9j0n3JA_a4"
-    //private let baseURLString = "https://maps.googleapis.com/maps/api/place/autocomplete/json"
-    
-    private let googleMapsKey = "0c91c28538c61cac27eed49a353e3e2d"
-    private let baseURLString = "https://api.flightstats.com/flex/airports/rest/v1/json"
+    private var responseData:NSMutableData?     // Creates dynamic mutable data
+    private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
     
     
-
-    
+    //Api Url String and key, not being used yet. We are hard coding it.
+    private let apiKey = "0c91c28538c61cac27eed49a353e3e2d"
+    private let URLString = "https://api.flightstats.com/flex/airports/rest/v1/json"
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         self.airportField.delegate = self;
         self.airlineField.delegate = self;
         self.flightField.delegate = self;
@@ -54,8 +37,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
         
-        
-        
     }
     
     
@@ -63,27 +44,23 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /************************************************************************
-    //codeing for search button
-     need to connect to the table
-     
-    @IBAction func SearchButton(sender: UIButton) {
-        let search = tableData.self
-        tableOutlet.text = "\(search)"
-    }
     
-    **************************************************************************/
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, withEvent: event)
     }
     
-    //override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        //return UIStatusBarStyle.LightContent
-    //}
+    
+    //Method for having the status bar on top with a light color, depending on our background color.
+    /*
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    */
     
     
+    //Dismisses the keyboard from all 3 textfields.
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         airportField.resignFirstResponder()
         airlineField.resignFirstResponder()
@@ -91,6 +68,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         return true
     }
     
+    //Dismisses the keyboard from All 3 TextFields.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
         airportField.resignFirstResponder()
@@ -99,10 +77,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         return true
     }
     
-
-
-    
-    
+    //Configuration of the Font from the AutoComplete list in Aiport Field.
     private func configureTextField(){
         airportField.autoCompleteTextColor = UIColor(red: 128.0/255.0, green: 128.0/255.0, blue: 128.0/255.0, alpha: 1.0)
         airportField.autoCompleteTextFont = UIFont(name: "HelveticaNeue-Light", size: 12.0)
@@ -117,14 +92,17 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         airportField.autoCompleteAttributes = attributes
     }
     
-    
+    //Action for the Button
     @IBAction func buttonPressed(sender: AnyObject) {
         
         
-        let userInput = airportField.text
-        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
+        let userInput = airportField.text       //Saves airport textfield text into this variable.
+        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)  //Saves only the airport code of each line in airport textfield.
         
+        //The url we are using for extracting the Restaurants name based on the localilty.
         let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+  
+        //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         if url != nil{
             let urlRequest = NSURLRequest(URL: url!)
@@ -135,18 +113,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     }
     
     
-//    func buttonPressed(sender: AnyObject){
-//        let userInput = airportField.text
-//        let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
-//        
-//        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
-//        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-//        if url != nil{
-//            let urlRequest = NSURLRequest(URL: url!)
-//            self.connection = NSURLConnection(request: urlRequest, delegate: self)
-//        }
-//    }
-    
     private func handleTextFieldInterfaces(){
         airportField.onTextChange = {[weak self] text in
             if !text.isEmpty{
@@ -154,20 +120,16 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                     self!.connection!.cancel()
                     self!.connection = nil
                 }
+                
                 //let urlString = "\(self!.baseURLString)?key=\(self!.googleMapsKey)&input=\(text)"
                 
+                //URL used for extracting the Airports based on the Airport Code.
                 let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/iata/\(text)?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d"
                 
-               // let urlString = "\(self?.baseURLString)/countryCode/US?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d"
-               
-               // https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyDg2tlPcoqxx2Q2rfjhsAKS-9j0n3JA_a4&input=houston
                 
-               // https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/US?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d
-                
-               //  https://api.flightstats.com/flex/airports/rest/v1/json/cityCode/HOU?appId=cbd2ebb0&appKey=0c91c28538c61cac27eed49a353e3e2d
-                
-                
+                //Connecting to the API
                 let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+                
                 if url != nil{
                     let urlRequest = NSURLRequest(URL: url!)
                     self!.connection = NSURLConnection(request: urlRequest, delegate: self)
@@ -178,66 +140,64 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     }
     
     
-   
+    //API Connections
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
         responseData = NSMutableData()
     }
     
+    //API Connections
     func connection(connection: NSURLConnection, didReceiveData data: NSData) {
         responseData?.appendData(data)
     }
     
+    //API Response
     func connectionDidFinishLoading(connection: NSURLConnection) {
         if let data = responseData{
             
             do{
+                //Extracting data from the "airports" array.
                 let result = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                
-                //if let status = result["status"] as? String{
-                   // if status == "OK"{
                         if let predictions = result["airports"] as? NSArray{
+                            
+                            //Arrays for storing the data extracted.
                             var locations = [String]()
-                            //var locations2 = [String]()
-                            //var locations3 = [String]()
-                            var locations4 = [String]()
-                            var locations5 = [String]()
+                            var locations2 = [String]()
+                            var locations3 = [String]()
+                            
                             for dict in predictions as! [NSDictionary]{
+                                //Extracting iata code and name of the Airport from airports dictionary.
                                 locations.append(dict["iata"] as! String)
-                                //locations2.append(dict["city"] as! String)
-                                //locations3.append(dict["stateCode"] as! String)
-                                locations4.append(dict["name"] as! String)
+                                locations2.append(dict["name"] as! String)
                             }
                             
+                            //Formatting and appendng the iata code array and the name array into a new formatted one.
                             for var index = 0; index < locations.count; ++index {
-                                locations5.append(locations[index] + "  " + locations4[index])
-                                //print("index is \(index)")
+                                locations3.append(locations[index] + "  " + locations2[index])
                             }
                             
-                            
-                            
-                            
-                            self.airportField.autoCompleteStrings = locations5
+                            //Returning the formatted array into the AutoCompleteStrings from the airport field.
+                            self.airportField.autoCompleteStrings = locations3
                             return
                         }
                 
+                //Same as above, extracting data from the objects array or dictionary.
                 if let predictions = result["objects"] as? NSArray{
                     
                     var locations = [String]()
                     for dict in predictions as! [NSDictionary]{
+                        //Extracting the name of the restaurants
                         locations.append(dict["name"] as! String)
                     }
                     
+                    //Returning the result in a textview called outputLabel.
                     for var index = 0; index < locations.count; ++index{
-                        //self.outputLabel.text = outputLabel.text + "\r\n" + locations[index];
+                        
+                        //comma separated formatted.
                         self.outputLabel.text = outputLabel.text + "," + locations[index];
                     }
                     
                     return
-                    
                 }
-                    //}
-                //}
-                //self.airportField.autoCompleteStrings = nil
             }
             catch let error as NSError{
                 print("Error: \(error.localizedDescription)")
@@ -245,32 +205,18 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         }
     }
 
-    
-    
-    
+
+    //Dismiss the keyboard from Airport Field.
     func dismissKeyboard(){
         self.airportField.resignFirstResponder()
     }
     
-    
+    //Sending the data returned in the outputLabel textview to dataPassed which is a string variable in TableViewController.swift
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
-            
-
-
-            
-            
             svc.dataPassed = outputLabel.text
-            //svc.secondDataPassed =
-            
             
         }
-
-
-
-
-
-}
-    
+    }
 }

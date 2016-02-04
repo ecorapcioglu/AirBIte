@@ -11,11 +11,7 @@ import UIKit
 class TableViewController: UITableViewController {
     
     var dataPassed:String!
-    var secondDataPassed:String!
     var restaurants: [String] = []
-    
-    
-   // var restaurants: Array[String] = dataPassed
 
     @IBOutlet weak var text: UITextView!
 
@@ -23,8 +19,6 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //text.text = dataPassed
 
         // this splits the restaurants list by comma and puts the list into an array.
         // this will then let us use this array to return the restaurants individually to the table cell in tableView.
