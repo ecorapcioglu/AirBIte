@@ -100,7 +100,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)  //Saves only the airport code of each line in airport textfield.
         
         //The url we are using for extracting the Restaurants name based on the localilty.
-        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
   
         //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
@@ -156,37 +156,66 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             
             do{
                 //Extracting data from the "airports" array.
-                let result = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                        if let predictions = result["airports"] as? NSArray{
-                            
-                            //Arrays for storing the data extracted.
-                            var locations = [String]()
-                            var locations2 = [String]()
-                            var locations3 = [String]()
-                            
-                            for dict in predictions as! [NSDictionary]{
-                                //Extracting iata code and name of the Airport from airports dictionary.
-                                locations.append(dict["iata"] as! String)
-                                locations2.append(dict["name"] as! String)
-                            }
-                            
-                            //Formatting and appendng the iata code array and the name array into a new formatted one.
-                            for var index = 0; index < locations.count; ++index {
-                                locations3.append(locations[index] + "  " + locations2[index])
-                            }
-                            
-                            //Returning the formatted array into the AutoCompleteStrings from the airport field.
-                            self.airportField.autoCompleteStrings = locations3
-                            return
-                        }
-                
-                //Same as above, extracting data from the objects array or dictionary.
-                if let predictions = result["objects"] as? NSArray{
+                if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
                     
+                    if let predictions = result["airports"] as? NSArray{
+                        
+                        //Arrays for storing the data extracted.
+                        var locations = [String]()
+                        var locations2 = [String]()
+                        var locations3 = [String]()
+                        
+                        for dict in predictions as! [NSDictionary]{
+                            //Extracting iata code and name of the Airport from airports dictionary.
+                            locations.append(dict["iata"] as! String)
+                            locations2.append(dict["name"] as! String)
+                        }
+                        
+                        //Formatting and appendng the iata code array and the name array into a new formatted one.
+                        for var index = 0; index < locations.count; ++index {
+                            locations3.append(locations[index] + "  " + locations2[index])
+                        }
+                        
+                        //Returning the formatted array into the AutoCompleteStrings from the airport field.
+                        self.airportField.autoCompleteStrings = locations3
+                        return
+                    }
+                    
+                    
+                    //Same as above, extracting data from the objects array or dictionary.
+                    let prediction = result["objects"] as! NSArray
+                    //let predictions2 = predictions!["menus"] as? NSArray
                     var locations = [String]()
-                    for dict in predictions as! [NSDictionary]{
+                    
+                    for dict in prediction {
                         //Extracting the name of the restaurants
                         locations.append(dict["name"] as! String)
+                        
+                        let predictions2 = dict["menus"] as! NSArray
+                        
+                        for dict2 in predictions2{
+                            // let group2 = dict2["menu_name"]
+                            // print(group2)
+                            
+                            let predictions3 = dict2["sections"] as! NSArray
+                            
+                            for dict3 in predictions3{
+                                let predictions4 = dict3["subsections"] as! NSArray
+                                
+                                for dict4 in predictions4{
+                                    let predictions5 = dict4["contents"] as! NSArray
+                                    
+                                    for dict5 in predictions5{
+                                        let group = dict5["name"]
+                                        let group2 = dict5["price"]
+                                        print(group)
+                                        print(group2)
+                                    }
+                                }
+                                
+                                
+                            }
+                        }
                     }
                     
                     //Returning the result in a textview called outputLabel.
