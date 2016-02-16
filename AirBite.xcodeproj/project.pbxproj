@@ -16,6 +16,7 @@
 		C244A8971BF1732A000CF306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C244A8951BF1732A000CF306 /* LaunchScreen.storyboard */; };
 		C244A8A21BF1732A000CF306 /* AirBiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8A11BF1732A000CF306 /* AirBiteTests.swift */; };
 		C244A8AD1BF1732A000CF306 /* AirBiteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */; };
+		C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6046D1C72639900562E74 /* MenuTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C244A8A81BF1732A000CF306 /* AirBiteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirBiteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBiteUITests.swift; sourceTree = "<group>"; };
 		C244A8AE1BF1732A000CF306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2A6046D1C72639900562E74 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				C244A8931BF1732A000CF306 /* Assets.xcassets */,
 				C244A8951BF1732A000CF306 /* LaunchScreen.storyboard */,
 				C244A8981BF1732A000CF306 /* Info.plist */,
+				C2A6046D1C72639900562E74 /* MenuTableViewController.swift */,
 			);
 			path = AirBite;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			files = (
 				900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */,
 				C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */,
+				C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,
 				90C810B41C60191D008624CE /* TableViewController.swift in Sources */,
 			);

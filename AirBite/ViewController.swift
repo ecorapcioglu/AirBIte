@@ -15,6 +15,9 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     @IBOutlet weak var airlineField: UITextField!               // Airline Text Field
     @IBOutlet weak var flightField: UITextField!                // Flight Number Text Field
     
+    var menuItem: [AnyObject!] = []
+    var menuItemPrice: [AnyObject!] = []
+    
     
     private var responseData:NSMutableData?     // Creates dynamic mutable data
     private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
@@ -32,7 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         self.airlineField.delegate = self;
         self.flightField.delegate = self;
         configureTextField()
-        handleTextFieldInterfaces()
+        //handleTextFieldInterfaces()
         let tapGesture = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
@@ -100,7 +103,11 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)  //Saves only the airport code of each line in airport textfield.
         
         //The url we are using for extracting the Restaurants name based on the localilty.
-        let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        // McDonald's
+      /*  let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b" */
+        
+        let urlString = "https://api.locu.com/v1_0/venue/6e15db9473d02dda8ffe/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        
   
         //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
@@ -113,7 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     }
     
     
-    private func handleTextFieldInterfaces(){
+  /*  private func handleTextFieldInterfaces(){
         airportField.onTextChange = {[weak self] text in
             if !text.isEmpty{
                 if self!.connection != nil{
@@ -137,7 +144,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             }
         }
 
-    }
+    }*/
     
     
     //API Connections
@@ -156,9 +163,9 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             
             do{
                 //Extracting data from the "airports" array.
-                if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
+               if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
                     
-                    if let predictions = result["airports"] as? NSArray{
+                 /*   if let predictions = result["airports"] as? NSArray{
                         
                         //Arrays for storing the data extracted.
                         var locations = [String]()
@@ -179,7 +186,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                         //Returning the formatted array into the AutoCompleteStrings from the airport field.
                         self.airportField.autoCompleteStrings = locations3
                         return
-                    }
+                    }*/
                     
                     
                     //Same as above, extracting data from the objects array or dictionary.
@@ -208,8 +215,13 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                                     for dict5 in predictions5{
                                         let group = dict5["name"]
                                         let group2 = dict5["price"]
-                                        print(group)
-                                        print(group2)
+                                        
+                                        menuItem.append(group)
+                                        menuItemPrice.append(group2)
+                                        
+                                       // print(group)
+                                       // print(group2)
+                                        // DFW Dallas/Fort Worth International Airport
                                     }
                                 }
                                 
@@ -245,7 +257,9 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
             svc.dataPassed = outputLabel.text
-            
+            svc.menuItems = menuItem
+            svc.menuItemPrices = menuItemPrice
+
         }
     }
 }

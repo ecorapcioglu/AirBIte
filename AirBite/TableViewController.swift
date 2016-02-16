@@ -12,6 +12,8 @@ class TableViewController: UITableViewController {
     
     var dataPassed:String!
     var restaurants: [String] = []
+    var menuItems: [AnyObject!] = []
+    var menuItemPrices: [AnyObject!] = []
 
     @IBOutlet weak var text: UITextView!
 
@@ -67,6 +69,14 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    //Sending the data returned from the restaurant api to the specific arrays which are two arrays in MenuTableViewController.swift
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "restaurantSelectSegue") {
+            let menuTableViewController = segue.destinationViewController as! MenuTableViewController
+            menuTableViewController.menuItem = menuItems
+            menuTableViewController.menuItemPrice = menuItemPrices
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
