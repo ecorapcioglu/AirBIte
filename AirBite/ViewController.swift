@@ -17,7 +17,10 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     
     var menuItem: [AnyObject!] = []
     var menuItemPrice: [AnyObject!] = []
+    var menuItemType: [AnyObject!] = []
     
+    var appetizers: [AnyObject!] = []
+    var appetizersPrice: [AnyObject!] = []
     
     private var responseData:NSMutableData?     // Creates dynamic mutable data
     private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
@@ -104,8 +107,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         
         //The url we are using for extracting the Restaurants name based on the localilty.
         // McDonald's
-      /*  let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b" */
-        
+//        let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+
         let urlString = "https://api.locu.com/v1_0/venue/6e15db9473d02dda8ffe/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
         
   
@@ -208,6 +211,28 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                             
                             for dict3 in predictions3{
                                 let predictions4 = dict3["subsections"] as! NSArray
+                                let menuType = dict3["section_name"] //as! NSArray
+                                
+                                menuItemType.append(menuType)
+                                
+                                
+                                /// this is used to pull just the appetizer section for now. This will be updated to filter per section but for now this is just for the appetizer arrays.
+                                if let firstElem = menuItemType.first {
+                                    for elem in predictions3 {
+                                        if elem["section_name"] as! String == firstElem as! String {
+                                            
+                                            for subSection in elem["subsections"] as! NSArray {
+                                                let subSec = subSection["contents"] as! NSArray
+                                                for food in subSec {
+                                                    let appItem = food["name"]
+                                                    appetizers.append(appItem)
+                                                    let appPrice = food["price"]
+                                                    appetizersPrice.append(appPrice)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 
                                 for dict4 in predictions4{
                                     let predictions5 = dict4["contents"] as! NSArray
@@ -215,17 +240,12 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                                     for dict5 in predictions5{
                                         let group = dict5["name"]
                                         let group2 = dict5["price"]
+                                        //let group4 = dict5["description"]
                                         
                                         menuItem.append(group)
                                         menuItemPrice.append(group2)
-                                        
-                                       // print(group)
-                                       // print(group2)
-                                        // DFW Dallas/Fort Worth International Airport
                                     }
                                 }
-                                
-                                
                             }
                         }
                     }
@@ -259,6 +279,9 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             svc.dataPassed = outputLabel.text
             svc.menuItems = menuItem
             svc.menuItemPrices = menuItemPrice
+            svc.menuItemType = menuItemType
+            svc.appetizers = appetizers
+            svc.appetizersPrice = appetizersPrice
 
         }
     }

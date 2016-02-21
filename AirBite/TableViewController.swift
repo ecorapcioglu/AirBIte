@@ -14,6 +14,9 @@ class TableViewController: UITableViewController {
     var restaurants: [String] = []
     var menuItems: [AnyObject!] = []
     var menuItemPrices: [AnyObject!] = []
+    var menuItemType: [AnyObject!] = []
+    var appetizers: [AnyObject!] = []
+    var appetizersPrice: [AnyObject!] = []
 
     @IBOutlet weak var text: UITextView!
 
@@ -75,6 +78,9 @@ class TableViewController: UITableViewController {
             let menuTableViewController = segue.destinationViewController as! MenuTableViewController
             menuTableViewController.menuItem = menuItems
             menuTableViewController.menuItemPrice = menuItemPrices
+            menuTableViewController.menuItemType = menuItemType
+            menuTableViewController.appetizers = appetizers
+            menuTableViewController.appetizersPrice = appetizersPrice
         }
     }
 
