@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */; };
+		90429A6F1C7CA6E800967EF3 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */; };
 		9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */; };
 		90C810B41C60191D008624CE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C810B31C60191D008624CE /* TableViewController.swift */; };
 		C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A88C1BF1732A000CF306 /* AppDelegate.swift */; };
@@ -39,7 +40,9 @@
 
 /* Begin PBXFileReference section */
 		900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutoCompleteTextField.swift; path = AirBite/AutoCompleteTextField.swift; sourceTree = "<group>"; };
+		90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		9081C15F1C7CA609007ACA5C /* AirBite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirBite.entitlements; sourceTree = "<group>"; };
 		90C810B31C60191D008624CE /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C244A8891BF1732A000CF306 /* AirBite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C244A88C1BF1732A000CF306 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,15 +117,17 @@
 		C244A88B1BF1732A000CF306 /* AirBite */ = {
 			isa = PBXGroup;
 			children = (
-				C244A88C1BF1732A000CF306 /* AppDelegate.swift */,
-				C244A88E1BF1732A000CF306 /* ViewController.swift */,
+				9081C15F1C7CA609007ACA5C /* AirBite.entitlements */,
 				C244A8901BF1732A000CF306 /* Main.storyboard */,
+				C244A88E1BF1732A000CF306 /* ViewController.swift */,
 				90C810B31C60191D008624CE /* TableViewController.swift */,
+				C2A6046D1C72639900562E74 /* MenuTableViewController.swift */,
+				9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */,
+				90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */,
 				C244A8931BF1732A000CF306 /* Assets.xcassets */,
 				C244A8951BF1732A000CF306 /* LaunchScreen.storyboard */,
 				C244A8981BF1732A000CF306 /* Info.plist */,
-				C2A6046D1C72639900562E74 /* MenuTableViewController.swift */,
-				9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */,
+				C244A88C1BF1732A000CF306 /* AppDelegate.swift */,
 			);
 			path = AirBite;
 			sourceTree = "<group>";
@@ -213,7 +218,12 @@
 				TargetAttributes = {
 					C244A8881BF1732A000CF306 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 3684VHWFLA;
+						DevelopmentTeam = Q8Y835U42W;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 1;
+							};
+						};
 					};
 					C244A89C1BF1732A000CF306 = {
 						CreatedOnToolsVersion = 7.2;
@@ -279,6 +289,7 @@
 			files = (
 				900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */,
 				9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */,
+				90429A6F1C7CA6E800967EF3 /* PaymentViewController.swift in Sources */,
 				C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */,
 				C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,
@@ -422,12 +433,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AirBite/AirBite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AirBite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LSUS.AirBite2;
+				PRODUCT_BUNDLE_IDENTIFIER = LSUS.AirBiteApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -438,12 +450,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AirBite/AirBite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AirBite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LSUS.AirBite2;
+				PRODUCT_BUNDLE_IDENTIFIER = LSUS.AirBiteApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

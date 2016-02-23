@@ -15,6 +15,8 @@ class DescriptionViewController: UIViewController {
     
     var descriptionString = String()
     var foodDescription: [String] = []
+    var itemName = String()
+    var itemPrice = String()
     
     
     
@@ -22,6 +24,18 @@ class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         descriptionTextView.text = descriptionString
         
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "paymentSegue") {
+            let svc = segue.destinationViewController as! PaymentViewController
+            svc.itemName = itemName
+            svc.itemPrice = itemPrice
+            //svc.menuItemPricesForPayment = priceItem
+            //svc.menuItemPrices = menuItemPrice
+            
+        }
     }
     
     

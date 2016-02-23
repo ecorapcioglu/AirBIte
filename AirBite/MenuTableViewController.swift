@@ -139,7 +139,8 @@ class MenuTableViewController: UITableViewController {
         if segue.identifier == "descriptionSegue" {
             if let destination = segue.destinationViewController as? DescriptionViewController {
                 if let blogIndex = tableView.indexPathForSelectedRow?.row {
-                    //destination.descriptionString = appList[blogIndex]
+                    destination.itemName = appList[blogIndex]
+                    destination.itemPrice = appPriceList[blogIndex]
                     destination.descriptionString = foodDescription[blogIndex]
                 }
             }
