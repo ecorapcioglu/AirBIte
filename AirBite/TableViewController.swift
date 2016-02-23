@@ -10,13 +10,16 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    var dataPassed:String!
-    var restaurants: [String] = []
+    //var dataPassed:String!
+    //var restaurants: [String] = []
     var menuItems: [AnyObject!] = []
     var menuItemPrices: [AnyObject!] = []
     var menuItemType: [AnyObject!] = []
     var appetizers: [AnyObject!] = []
     var appetizersPrice: [AnyObject!] = []
+    var descriptionsArray: [AnyObject!] = []
+    var foodDescription: [String] = []
+    var restaurantsName: [String] = []
 
     @IBOutlet weak var text: UITextView!
 
@@ -27,7 +30,7 @@ class TableViewController: UITableViewController {
 
         // this splits the restaurants list by comma and puts the list into an array.
         // this will then let us use this array to return the restaurants individually to the table cell in tableView.
-         restaurants = dataPassed.componentsSeparatedByString(",")
+         //restaurants = dataPassed.componentsSeparatedByString(",")
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -52,7 +55,8 @@ class TableViewController: UITableViewController {
     /// is set in numberOfSectionInTableView function.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // we want to return the number of rows based on how many values are in the restaurants array.
-        return restaurants.count
+        return restaurantsName
+            .count
     }
     
     // This returns the title of the section
@@ -67,7 +71,7 @@ class TableViewController: UITableViewController {
         
         
         // return a value for each cell (text value) based on the values in the restuarnts array.
-        cell.textLabel?.text = restaurants[indexPath.row]
+        cell.textLabel?.text = restaurantsName[indexPath.row]
         
         return cell
     }
@@ -81,6 +85,7 @@ class TableViewController: UITableViewController {
             menuTableViewController.menuItemType = menuItemType
             menuTableViewController.appetizers = appetizers
             menuTableViewController.appetizersPrice = appetizersPrice
+            menuTableViewController.foodDescription = foodDescription
         }
     }
 

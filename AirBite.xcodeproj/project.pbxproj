@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */; };
+		9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */; };
 		90C810B41C60191D008624CE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C810B31C60191D008624CE /* TableViewController.swift */; };
 		C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A88C1BF1732A000CF306 /* AppDelegate.swift */; };
 		C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A88E1BF1732A000CF306 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutoCompleteTextField.swift; path = AirBite/AutoCompleteTextField.swift; sourceTree = "<group>"; };
+		9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		90C810B31C60191D008624CE /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C244A8891BF1732A000CF306 /* AirBite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C244A88C1BF1732A000CF306 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				C244A8951BF1732A000CF306 /* LaunchScreen.storyboard */,
 				C244A8981BF1732A000CF306 /* Info.plist */,
 				C2A6046D1C72639900562E74 /* MenuTableViewController.swift */,
+				9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */,
 			);
 			path = AirBite;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */,
+				9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */,
 				C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */,
 				C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,

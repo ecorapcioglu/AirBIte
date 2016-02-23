@@ -19,6 +19,7 @@ class MenuTableViewController: UITableViewController {
     var appList: [String] = []
     var appetizersPrice: [AnyObject!] = []
     var appPriceList: [String] = []
+    var foodDescription: [String] = []
 
     /// Loads the page
     override func viewDidLoad() {
@@ -77,6 +78,8 @@ class MenuTableViewController: UITableViewController {
         }
     }
     
+
+    
     /// alphabetizes the value in a string array.
     func before(value1: String, value2: String) -> Bool {
         // One string is alphabetically first.
@@ -130,4 +133,19 @@ class MenuTableViewController: UITableViewController {
         
         return cell
     }
+
+    // MARK: - Segues
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "descriptionSegue" {
+            if let destination = segue.destinationViewController as? DescriptionViewController {
+                if let blogIndex = tableView.indexPathForSelectedRow?.row {
+                    //destination.descriptionString = appList[blogIndex]
+                    destination.descriptionString = foodDescription[blogIndex]
+                }
+            }
+        }
+    }
+
+
+
  }
