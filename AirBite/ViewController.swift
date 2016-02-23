@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     var descriptionsArray: [AnyObject!] = []
     
     var foodDescription: [String] = []
-    var restaurantsName: [String] = []
+    @IBOutlet var restaurantsName: [String] = []
     
     private var responseData:NSMutableData?     // Creates dynamic mutable data
     private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
@@ -36,8 +36,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     private let airportAppKey = "7f2044891f2c25f3fadd4b7af9505450"
     private let airportURLString = "https://api.flightstats.com/flex/airports/rest/v1/json/iata/"
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.airportField.delegate = self;
@@ -48,7 +46,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         let tapGesture = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
-        
     }
     
     
@@ -144,9 +141,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                 }
             }
         }
-
     }
-    
     
     //API Connections
     func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
@@ -161,7 +156,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     //API Response
     func connectionDidFinishLoading(connection: NSURLConnection) {
         if let data = responseData{
-            
             do{
                 //Extracting data from the "airports" array.
                if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
@@ -188,8 +182,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                         self.airportField.autoCompleteStrings = locations3
                         return
                     }
-                    
-                    
+                
                     //Same as above, extracting data from the objects array or dictionary.
                     let prediction = result["objects"] as! NSArray
                     //let predictions2 = predictions!["menus"] as? NSArray
@@ -231,36 +224,38 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                                     }
                                 }
                                 
-                                for dict4 in predictions4{
-                                    let predictions5 = dict4["contents"] as! NSArray
+                            for dict4 in predictions4{
+                                let predictions5 = dict4["contents"] as! NSArray
                                     
-                                    for dict5 in predictions5{
-                                        let group = dict5["name"]
-                                        let group2 = dict5["price"]
-                                        let itemDescription = dict5["description"]
-                                        descriptionsArray.append(itemDescription)
+                                for dict5 in predictions5{
+                                    let group = dict5["name"]
+                                    let group2 = dict5["price"]
+                                    let itemDescription = dict5["description"]
+                                    descriptionsArray.append(itemDescription)
                                         
-                                        menuItem.append(group)
-                                        menuItemPrice.append(group2)
-                                    }
+                                    menuItem.append(group)
+                                    menuItemPrice.append(group2)
                                 }
                             }
                         }
                     }
+                } // this ends predictions
                 
                 let descriptionWithNoNilValues = descriptionsArray.flatMap { $0 }
-                
                 
                 for app in descriptionWithNoNilValues {
                     foodDescription.append(app as! String)
                 }
                 
-                    //Returning the result in a textview called outputLabel.
-                    for var index = 0; index < locations.count; ++index{
-                        self.restaurantsName.append(locations[index])
-                    }
-                    
-                    return
+                //Returning the result in a textview called outputLabel.
+                for var index = 0; index < locations.count; ++index{
+                    self.restaurantsName.append(locations[index])
+                }
+                
+                // intialize submit button segue here.
+                self.performSegueWithIdentifier("btnSubmitSegue", sender: self)
+                
+                return
                 }
             }
             catch let error as NSError{
@@ -277,20 +272,21 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     
     //Sending the data returned in the outputLabel textview to dataPassed which is a string variable in TableViewController.swift
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+       // print(restaurantsName)
+        
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
             //svc.dataPassed = outputLabel.text
+            
+           // print(restaurantsName)
             svc.restaurantsName = restaurantsName
+            
             svc.menuItems = menuItem
             svc.menuItemPrices = menuItemPrice
             svc.menuItemType = menuItemType
             svc.appetizers = appetizers
             svc.appetizersPrice = appetizersPrice
             svc.foodDescription = foodDescription
-            
-
         }
     }
-    
-    
 }
