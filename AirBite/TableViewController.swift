@@ -30,7 +30,7 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-            restaurantAPI()
+        
         
         
         
@@ -79,7 +79,7 @@ class TableViewController: UITableViewController {
     private func restaurantAPI(){
 
         
-        let urlString = "https://api.locu.com/v1_0/venue/3874fa874f1289244e75/?has_menu=TRUE&locality=DFW&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        let urlString = "https://api.locu.com/v1_0/venue/" + selectedRestaurantID +   "/?has_menu=TRUE&locality=DFW&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
         
         //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
@@ -173,8 +173,9 @@ class TableViewController: UITableViewController {
                     if let blogIndex = tableView.indexPathForSelectedRow?.row {
                         menuTableViewController.wholeMenuArray = wholeMenuArray
                         menuTableViewController.menuItemType = menuItemType
-                        //menuTableViewController.restaurantsID = restaurantsID[blogIndex]
-                        //selectedRestaurantID = restaurantsID[blogIndex]
+                        menuTableViewController.restaurantsID = restaurantsID[blogIndex]
+                        selectedRestaurantID = restaurantsID[blogIndex]
+                        restaurantAPI()
     
                     }
                 }

@@ -38,6 +38,7 @@ class AccordionMenuTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(restaurantsID)
         
         let menuSectionNameWithNoNilValues = menuItemType.flatMap { $0 }
         
