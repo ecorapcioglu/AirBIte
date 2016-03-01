@@ -19,6 +19,7 @@
 		C244A8A21BF1732A000CF306 /* AirBiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8A11BF1732A000CF306 /* AirBiteTests.swift */; };
 		C244A8AD1BF1732A000CF306 /* AirBiteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */; };
 		C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6046D1C72639900562E74 /* MenuTableViewController.swift */; };
+		C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBiteUITests.swift; sourceTree = "<group>"; };
 		C244A8AE1BF1732A000CF306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2A6046D1C72639900562E74 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionMenuTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		C244A88B1BF1732A000CF306 /* AirBite */ = {
 			isa = PBXGroup;
 			children = (
+				C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */,
 				9081C15F1C7CA609007ACA5C /* AirBite.entitlements */,
 				C244A8901BF1732A000CF306 /* Main.storyboard */,
 				C244A88E1BF1732A000CF306 /* ViewController.swift */,
@@ -294,6 +297,7 @@
 				C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,
 				90C810B41C60191D008624CE /* TableViewController.swift in Sources */,
+				C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,8 @@ class TableViewController: UITableViewController {
     var descriptionsArray: [AnyObject!] = []
     var foodDescription: [String] = []
     var restaurantsName: [String] = []
+    var wholeMenuArray: [NSArray!] = []
+    var menuSectionName: [String] = []
 
     @IBOutlet weak var text: UITextView!
 
@@ -27,6 +29,15 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let menuSectionNameWithNoNilValues = menuItemType.flatMap { $0 }
+        
+        var menuSection: [String] = []
+        for type in menuSectionNameWithNoNilValues {
+            menuSection.append(type as! String)
+        }
+
+        menuSectionName = menuSection
 
         // this splits the restaurants list by comma and puts the list into an array.
         // this will then let us use this array to return the restaurants individually to the table cell in tableView.
@@ -77,18 +88,34 @@ class TableViewController: UITableViewController {
     }
     
     //Sending the data returned from the restaurant api to the specific arrays which are two arrays in MenuTableViewController.swift
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+//        if (segue.identifier == "restaurantSelectSegue") {
+//            let menuTableViewController = segue.destinationViewController as! MenuTableViewController
+//            menuTableViewController.menuItem = menuItems
+//            menuTableViewController.menuItemPrice = menuItemPrices
+//            menuTableViewController.menuItemType = menuItemType
+//            menuTableViewController.appetizers = appetizers
+//            menuTableViewController.appetizersPrice = appetizersPrice
+//            menuTableViewController.foodDescription = foodDescription
+//            menuTableViewController.wholeMenuArray = wholeMenuArray
+//        }
+//    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "restaurantSelectSegue") {
-            let menuTableViewController = segue.destinationViewController as! MenuTableViewController
-            menuTableViewController.menuItem = menuItems
-            menuTableViewController.menuItemPrice = menuItemPrices
-            menuTableViewController.menuItemType = menuItemType
+            let menuTableViewController = segue.destinationViewController as! AccordionMenuTableViewController
+//            menuTableViewController.menuItem = menuItems
+//            menuTableViewController.menuItemPrice = menuItemPrices
+//            menuTableViewController.menuItemType = menuItemType
             menuTableViewController.appetizers = appetizers
             menuTableViewController.appetizersPrice = appetizersPrice
+            menuTableViewController.menuSectionName = menuSectionName
             menuTableViewController.foodDescription = foodDescription
+            menuTableViewController.wholeMenuArray = wholeMenuArray
         }
     }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

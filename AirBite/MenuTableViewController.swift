@@ -20,6 +20,7 @@ class MenuTableViewController: UITableViewController {
     var appetizersPrice: [AnyObject!] = []
     var appPriceList: [String] = []
     var foodDescription: [String] = []
+    var wholeMenuArray: [NSArray!] = []
 
     /// Loads the page
     override func viewDidLoad() {
@@ -59,11 +60,13 @@ class MenuTableViewController: UITableViewController {
             appsPrice.append(app as! String)
         }
         
+       
         foodItem = removeDuplicates(menu)
         priceItem = removeDuplicates(priceMenu)
         menuSectionName = menuSection
         appList = removeDuplicates(apps)
         appPriceList = removeDuplicates(appsPrice)
+
         
         for _ in foodItem {
             if foodItem.count != priceItem.count {
@@ -110,17 +113,17 @@ class MenuTableViewController: UITableViewController {
     
     /// returns a section per value in the foodItem array.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return menuSectionName.count//foodItem.count
+        return 1 //menuSectionName.count//foodItem.count
     }
 
     /// returns the number of rows to be present on the table view. We currently only have one section with several rows. Currently we only want 1 row per section since each section is one menu item.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appList.count
+        return menuSectionName.count//appList.count
     }
     
     /// Set each section name to be a menu item.
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return menuSectionName[section]//foodItem[section]
+        return "Menu Sections"//menuSectionName[section]//foodItem[section]
     }
 
 
@@ -129,23 +132,37 @@ class MenuTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath)
         
         /// currently only populating the menu items with the app list.
-        cell.textLabel?.text = appList[indexPath.row] + " Price: " + appPriceList[indexPath.row]
+        cell.textLabel?.text = menuSectionName[indexPath.row]//appList[indexPath.row] + " Price: " + appPriceList[indexPath.row]
         
         return cell
     }
 
     // MARK: - Segues
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "descriptionSegue" {
-            if let destination = segue.destinationViewController as? DescriptionViewController {
-                if let blogIndex = tableView.indexPathForSelectedRow?.row {
-                    destination.itemName = appList[blogIndex]
-                    destination.itemPrice = appPriceList[blogIndex]
-                    destination.descriptionString = foodDescription[blogIndex]
-                }
-            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "descriptionSegue" {
+//            if let destination = segue.destinationViewController as? DescriptionViewController {
+//                if let blogIndex = tableView.indexPathForSelectedRow?.row {
+//                    destination.itemName = appList[blogIndex]
+//                    destination.itemPrice = appPriceList[blogIndex]
+//                    destination.descriptionString = foodDescription[blogIndex]
+//                }
+//            }
+//        }
+//    }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "descriptionSegue" {
+//            if let destination = segue.destinationViewController as? AccordionMenuTableViewController {
+//                destination.menuSectionName = menuSectionName
+//                destination.wholeMenuArray = wholeMenuArray
+////                if let blogIndex = tableView.indexPathForSelectedRow?.row {
+////                    destination.itemName = appList[blogIndex]
+////                    destination.itemPrice = appPriceList[blogIndex]
+////                    destination.descriptionString = foodDescription[blogIndex]
+////                }
+//            }
+//        }
+//    }
 
 
 

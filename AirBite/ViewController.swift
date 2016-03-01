@@ -23,6 +23,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     var appetizersPrice: [AnyObject!] = []
     var descriptionsArray: [AnyObject!] = []
     
+    var wholeMenuArray: [NSArray!] = []
+    
     var foodDescription: [String] = []
     @IBOutlet var restaurantsName: [String] = []
     
@@ -204,6 +206,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                                 
                                 menuItemType.append(menuType)
                                 
+                                wholeMenuArray.append(predictions3)
+                                
                                 
                                 /// this is used to pull just the appetizer section for now. This will be updated to filter per section but for now this is just for the appetizer arrays.
                                 if let firstElem = menuItemType.first {
@@ -287,6 +291,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             svc.appetizers = appetizers
             svc.appetizersPrice = appetizersPrice
             svc.foodDescription = foodDescription
+            svc.wholeMenuArray = wholeMenuArray
         }
     }
 }
