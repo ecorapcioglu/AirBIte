@@ -15,9 +15,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     @IBOutlet weak var airlineField: UITextField!               // Airline Text Field
     @IBOutlet weak var flightField: UITextField!                // Flight Number Text Field
     
-    var wholeMenuArray: [AnyObject!] = []
-    
-    var foodDescription: [String] = []
     var restaurantsName: [String] = []
     var restaurantsID: [String] = []
     

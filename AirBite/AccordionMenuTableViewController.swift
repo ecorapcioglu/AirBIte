@@ -11,17 +11,10 @@ class AccordionMenuTableViewController: UITableViewController {
     
     var descriptionString = String()
     var foodDescription: [String] = []
-    var itemName = String()
-    var itemPrice = String()
     var restaurantsID = String()
     
     var menuSectionName: [String] = []
     var wholeMenuArray: [AnyObject!] = []
-    var appetizers: [AnyObject!] = []
-    var appList: [String] = []
-    var appetizersPrice: [AnyObject!] = []
-    var appPriceList: [String] = []
-    
     var menuSectionItems = [String]()
     var menuItems = [[String]]()
     
@@ -50,7 +43,7 @@ class AccordionMenuTableViewController: UITableViewController {
         menuSectionName = menuSection
         //print(wholeMenuArray[0] as! String)
         
-        formatArrays()
+       // formatArrays()
         
         for (var i = 0; i < menuSectionName.count; i++) {
             menuSectionItems.append(menuSectionName[i])
@@ -102,29 +95,29 @@ class AccordionMenuTableViewController: UITableViewController {
     }
     
     /// Format the arrays when needed. Remove nil values, convert to strings, etc.
-    func formatArrays()
-    {
-        let appetizersWithNoNilValues = appetizers.flatMap { $0 }
-        var apps: [String] = []
-        for app in appetizersWithNoNilValues {
-            apps.append(app as! String)
-        }
-        appList = removeDuplicates(apps)
-        
-        
-        let appetizersPriceWithNoNilValues = appetizersPrice.flatMap { $0 }
-        var appsPrice: [String] = []
-        for app in appetizersPriceWithNoNilValues {
-            appsPrice.append(app as! String)
-        }
-        appPriceList = removeDuplicates(appsPrice)
-        
-        for _ in appList {
-            if appList.count != appPriceList.count {
-                appPriceList.append("N/A")
-            }
-        }
-    }
+//    func formatArrays()
+//    {
+//        let appetizersWithNoNilValues = appetizers.flatMap { $0 }
+//        var apps: [String] = []
+//        for app in appetizersWithNoNilValues {
+//            apps.append(app as! String)
+//        }
+//        appList = removeDuplicates(apps)
+//        
+//        
+//        let appetizersPriceWithNoNilValues = appetizersPrice.flatMap { $0 }
+//        var appsPrice: [String] = []
+//        for app in appetizersPriceWithNoNilValues {
+//            appsPrice.append(app as! String)
+//        }
+//        appPriceList = removeDuplicates(appsPrice)
+//        
+//        for _ in appList {
+//            if appList.count != appPriceList.count {
+//                appPriceList.append("N/A")
+//            }
+//        }
+//    }
     
     /// Removed dupicate values from the array passed in.
     func removeDuplicates(array: [String]) -> [String] {

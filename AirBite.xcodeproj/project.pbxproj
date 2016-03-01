@@ -18,7 +18,6 @@
 		C244A8971BF1732A000CF306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C244A8951BF1732A000CF306 /* LaunchScreen.storyboard */; };
 		C244A8A21BF1732A000CF306 /* AirBiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8A11BF1732A000CF306 /* AirBiteTests.swift */; };
 		C244A8AD1BF1732A000CF306 /* AirBiteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */; };
-		C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6046D1C72639900562E74 /* MenuTableViewController.swift */; };
 		C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +57,6 @@
 		C244A8A81BF1732A000CF306 /* AirBiteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirBiteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirBiteUITests.swift; sourceTree = "<group>"; };
 		C244A8AE1BF1732A000CF306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C2A6046D1C72639900562E74 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionMenuTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +122,6 @@
 				C244A8901BF1732A000CF306 /* Main.storyboard */,
 				C244A88E1BF1732A000CF306 /* ViewController.swift */,
 				90C810B31C60191D008624CE /* TableViewController.swift */,
-				C2A6046D1C72639900562E74 /* MenuTableViewController.swift */,
 				9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */,
 				90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */,
 				C244A8931BF1732A000CF306 /* Assets.xcassets */,
@@ -294,7 +291,6 @@
 				9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */,
 				90429A6F1C7CA6E800967EF3 /* PaymentViewController.swift in Sources */,
 				C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */,
-				C2A6046E1C72639900562E74 /* MenuTableViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,
 				90C810B41C60191D008624CE /* TableViewController.swift in Sources */,
 				C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */,
