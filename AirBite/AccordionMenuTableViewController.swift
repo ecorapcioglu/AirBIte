@@ -14,7 +14,7 @@ class AccordionMenuTableViewController: UITableViewController {
     var itemName = String()
     var itemPrice = String()
     var menuSectionName: [String] = []
-    var wholeMenuArray: [NSArray!] = []
+    var wholeMenuArray: [AnyObject!] = []
     var appetizers: [AnyObject!] = []
     var appList: [String] = []
     var appetizersPrice: [AnyObject!] = []
@@ -22,6 +22,8 @@ class AccordionMenuTableViewController: UITableViewController {
     
     var menuSectionItems = [String]()
     var menuItems = [[String]]()
+    
+    var menuDescriptionItems = [[String]]()
     
     var currentItemsExpanded = [Int]()
     var actualPositions = [Int]()
@@ -39,13 +41,46 @@ class AccordionMenuTableViewController: UITableViewController {
             menuSectionItems.append(menuSectionName[i])
             actualPositions.append(-1)
             
+            var foodItems: [AnyObject!] = []
             
+            var desciprtionItems: [AnyObject!] = []
+    
+            for menu in wholeMenuArray {
+                if menu["section_name"] as! String == menuSectionName[i]{
+                    let subSections = menu["subsections"] as! NSArray
+                    //print(subSections)
+                    for subSection in subSections {
+                        let foodContents = subSection["contents"] as! NSArray
+                        for foodItem in foodContents {
+                            if let food = foodItem["name"] {
+                                let foodItemWithNoNils = food.flatMap { $0 }
+                                foodItems.append(foodItemWithNoNils)
+                            }
+                            
+                            if let description = foodItem["description"] {
+                                let descriptionItemWithNoNils = description.flatMap { $0 }
+                                desciprtionItems.append(descriptionItemWithNoNils)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            let foodItemNoNil = foodItems.flatMap { $0 }
             var items = [String]()
-            for (var i = 0; i < appList.count; i++) {
-                items.append(appList[i])
+            for (var i = 0; i < foodItemNoNil.count; i++) {
+                items.append(foodItemNoNil[i] as! String)
             }
             
             self.menuItems.append(items)
+            
+            let desciptionItemNoNil = desciprtionItems.flatMap { $0 }
+            var descItems = [String]()
+            for (var i = 0; i < desciptionItemNoNil.count; i++) {
+                descItems.append(desciptionItemNoNil[i] as! String)
+            }
+            
+            self.menuDescriptionItems.append(descItems)
         }
         
         total = menuSectionItems.count
@@ -124,6 +159,7 @@ class AccordionMenuTableViewController: UITableViewController {
             cell = tableView.dequeueReusableCellWithIdentifier(menuItemIdentifier, forIndexPath: indexPath) as UITableViewCell
             cell.textLabel!.text = self.menuItems[menuSection][indexPath.row - self.actualPositions[menuSection] - 1]
             //cell.backgroundColor = UIColor.greenColor()
+            
         }
         else {
             cell = tableView.dequeueReusableCellWithIdentifier(menuSectionIdentifier, forIndexPath: indexPath) as UITableViewCell
@@ -264,9 +300,11 @@ class AccordionMenuTableViewController: UITableViewController {
         if segue.identifier == "descriptionSegue" {
             if let destination = segue.destinationViewController as? DescriptionViewController {
                 if let blogIndex = tableView.indexPathForSelectedRow?.row {
-                    destination.itemName = appList[blogIndex]
-                    destination.itemPrice = appPriceList[blogIndex]
-                    destination.descriptionString = foodDescription[blogIndex]
+                    
+                    destination.blogIndex = blogIndex
+                    destination.itemName = menuItems
+                    destination.descriptionString = menuDescriptionItems//foodDescription[blogIndex]
+                    
                 }
             }
         }

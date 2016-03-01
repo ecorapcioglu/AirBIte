@@ -13,16 +13,22 @@ class DescriptionViewController: UIViewController {
     
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    var descriptionString = String()
+    //var descriptionString = String()
+    var descriptionString =  [[String]]()
     var foodDescription: [String] = []
-    var itemName = String()
-    var itemPrice = String()
+    //var itemName = String()
+    var itemName = [[String]]()
+  //  var itemPrice = String()
+    
+    var blogIndex = 0
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        descriptionTextView.text = descriptionString
+        
+        //descriptionTextView.text = descriptionString[blogIndex]
+        
         
     }
     
@@ -30,8 +36,8 @@ class DescriptionViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "paymentSegue") {
             let svc = segue.destinationViewController as! PaymentViewController
-            svc.itemName = itemName
-            svc.itemPrice = itemPrice
+           // svc.itemName = itemName
+            //svc.itemPrice = itemPrice
             //svc.menuItemPricesForPayment = priceItem
             //svc.menuItemPrices = menuItemPrice
             

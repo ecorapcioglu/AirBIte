@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     var appetizersPrice: [AnyObject!] = []
     var descriptionsArray: [AnyObject!] = []
     
-    var wholeMenuArray: [NSArray!] = []
+    var wholeMenuArray: [AnyObject!] = []
     
     var foodDescription: [String] = []
     @IBOutlet var restaurantsName: [String] = []
@@ -204,9 +204,11 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                                 let predictions4 = dict3["subsections"] as! NSArray
                                 let menuType = dict3["section_name"]
                                 
+                                //print(dict3)
+                                
                                 menuItemType.append(menuType)
                                 
-                                wholeMenuArray.append(predictions3)
+                                wholeMenuArray.append(dict3)
                                 
                                 
                                 /// this is used to pull just the appetizer section for now. This will be updated to filter per section but for now this is just for the appetizer arrays.

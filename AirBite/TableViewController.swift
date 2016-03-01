@@ -18,7 +18,7 @@ class TableViewController: UITableViewController {
     var descriptionsArray: [AnyObject!] = []
     var foodDescription: [String] = []
     var restaurantsName: [String] = []
-    var wholeMenuArray: [NSArray!] = []
+    var wholeMenuArray: [AnyObject!] = []
     var menuSectionName: [String] = []
 
     @IBOutlet weak var text: UITextView!
