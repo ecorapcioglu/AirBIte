@@ -10,8 +10,6 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    //var dataPassed:String!
-    //var restaurants: [String] = []
     var menuItems: [AnyObject!] = []
     var menuItemPrices: [AnyObject!] = []
     var menuItemType: [AnyObject!] = []
@@ -24,8 +22,6 @@ class TableViewController: UITableViewController {
     var menuSectionName: [String] = []
 
     @IBOutlet weak var text: UITextView!
-
-  
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,34 +75,15 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("labelCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        
-        
         // return a value for each cell (text value) based on the values in the restuarnts array.
         cell.textLabel?.text = restaurantsName[indexPath.row]
         
         return cell
     }
-    
-    //Sending the data returned from the restaurant api to the specific arrays which are two arrays in MenuTableViewController.swift
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-//        if (segue.identifier == "restaurantSelectSegue") {
-//            let menuTableViewController = segue.destinationViewController as! MenuTableViewController
-//            menuTableViewController.menuItem = menuItems
-//            menuTableViewController.menuItemPrice = menuItemPrices
-//            menuTableViewController.menuItemType = menuItemType
-//            menuTableViewController.appetizers = appetizers
-//            menuTableViewController.appetizersPrice = appetizersPrice
-//            menuTableViewController.foodDescription = foodDescription
-//            menuTableViewController.wholeMenuArray = wholeMenuArray
-//        }
-//    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "restaurantSelectSegue") {
             let menuTableViewController = segue.destinationViewController as! AccordionMenuTableViewController
-//            menuTableViewController.menuItem = menuItems
-//            menuTableViewController.menuItemPrice = menuItemPrices
-//            menuTableViewController.menuItemType = menuItemType
             menuTableViewController.appetizers = appetizers
             menuTableViewController.appetizersPrice = appetizersPrice
             menuTableViewController.menuSectionName = menuSectionName
@@ -114,51 +91,4 @@ class TableViewController: UITableViewController {
             menuTableViewController.wholeMenuArray = wholeMenuArray
         }
     }
-
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

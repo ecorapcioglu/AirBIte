@@ -17,12 +17,8 @@ class AccordionMenuTableViewController: UITableViewController {
     var wholeMenuArray: [NSArray!] = []
     var appetizers: [AnyObject!] = []
     var appList: [String] = []
-    
-    
     var appetizersPrice: [AnyObject!] = []
     var appPriceList: [String] = []
-    
-    var testArray: [AnyObject!] = []
     
     var topItems = [String]()
     var subItems = [[String]]()
@@ -31,21 +27,40 @@ class AccordionMenuTableViewController: UITableViewController {
     var actualPositions = [Int]()
     var total = 0
     
-    var sectionName: [String] = []
-    
     var parentCellIdentifier = "ParentCell"
     var childCellIdentifier = "ChildCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        formatArrays()
+        
+        for (var i = 0; i < menuSectionName.count; i++) {
+            topItems.append(menuSectionName[i])
+            actualPositions.append(-1)
+            
+            
+            var items = [String]()
+            for (var i = 0; i < appList.count; i++) {
+                items.append(appList[i])
+            }
+            
+            self.subItems.append(items)
+        }
+        
+        total = topItems.count
+    }
+    
+    /// Format the arrays when needed. Remove nil values, convert to strings, etc.
+    func formatArrays()
+    {
         let appetizersWithNoNilValues = appetizers.flatMap { $0 }
         var apps: [String] = []
         for app in appetizersWithNoNilValues {
             apps.append(app as! String)
         }
         appList = removeDuplicates(apps)
-
+        
         
         let appetizersPriceWithNoNilValues = appetizersPrice.flatMap { $0 }
         var appsPrice: [String] = []
@@ -59,26 +74,6 @@ class AccordionMenuTableViewController: UITableViewController {
                 appPriceList.append("N/A")
             }
         }
-
-        
-       // print(wholeMenuArray)
-        
-        //for (var i = 0; i < 10; i++) {
-        for (var i = 0; i < menuSectionName.count; i++) {
-            topItems.append(menuSectionName[i])
-            actualPositions.append(-1)
-            
-            
-            var items = [String]()
-            //for (var i = 0; i < 3; i++) {
-            for (var i = 0; i < appList.count; i++) {
-                items.append(appList[i])
-            }
-            
-            self.subItems.append(items)
-        }
-        
-        total = topItems.count
     }
     
     /// Removed dupicate values from the array passed in.
@@ -97,8 +92,6 @@ class AccordionMenuTableViewController: UITableViewController {
             }
         }
         
-        //result.sortInPlace(before)
-        
         return result
     }
 
@@ -107,16 +100,17 @@ class AccordionMenuTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    
+    /// returns the number of sections in the table view.
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
+    /// returns the number of rows to be present in each section on the table view.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.total
     }
     
-    
+    /// Organize the parent and child cell. Set the values for the parent and child cell. The parent cell is the cell containg the resturant menu sections. The child cell contains the menu items that belong to the current section/parent.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let parent = self.findParent(indexPath.row)
@@ -125,7 +119,6 @@ class AccordionMenuTableViewController: UITableViewController {
         let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
         
         var cell : UITableViewCell!
-        
         
         if isChild {
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
@@ -143,6 +136,7 @@ class AccordionMenuTableViewController: UITableViewController {
         return cell
     }
     
+    /// set up the features when a row is tapped - whether it's a parent row or child row.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let parent = self.findParent(indexPath.row)
@@ -153,11 +147,12 @@ class AccordionMenuTableViewController: UITableViewController {
             isChild = false
         }
         
-        if (isChild) {
-            NSLog("A child was tapped!!!");
-            return;
-        }
+//        if (isChild) {
+//            NSLog("A child was tapped!!!");
+//            return;
+//        }
         
+        // this is a built in table view featuer - allow multiple insert/delete of rows and sections to be animated simultaneously.
         self.tableView.beginUpdates()
         
         if let value = self.currentItemsExpanded.indexOf(self.findParent(indexPath.row)) {
@@ -189,7 +184,7 @@ class AccordionMenuTableViewController: UITableViewController {
         self.tableView.endUpdates()
     }
     
-    
+    /// expands the selected parent cell.
     private func expandItemAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
@@ -207,6 +202,7 @@ class AccordionMenuTableViewController: UITableViewController {
         self.total += self.subItems[val].count
     }
     
+    /// collapses the selected (and currently expanded) parent cell.
     private func collapseSubItemsAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
@@ -220,6 +216,7 @@ class AccordionMenuTableViewController: UITableViewController {
         self.total  -= self.subItems[parent].count
     }
     
+    /// sets the height and width of the cells based on if child cells are showing.
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         let parent = self.findParent(indexPath.row)
@@ -233,6 +230,7 @@ class AccordionMenuTableViewController: UITableViewController {
         return 64.0
     }
     
+    /// finds the index at which the parent cell is located.
     private func findParent(index : Int) -> Int {
         
         var parent = 0
@@ -262,15 +260,16 @@ class AccordionMenuTableViewController: UITableViewController {
         return parent
     }
     
-        override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-            if segue.identifier == "descriptionSegue" {
-                if let destination = segue.destinationViewController as? DescriptionViewController {
-                    if let blogIndex = tableView.indexPathForSelectedRow?.row {
-                        destination.itemName = appList[blogIndex]
-                        destination.itemPrice = appPriceList[blogIndex]
-                        destination.descriptionString = foodDescription[blogIndex]
-                    }
+    /// prepare for the segue to the description page. Pass the necessary values to the description page.
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "descriptionSegue" {
+            if let destination = segue.destinationViewController as? DescriptionViewController {
+                if let blogIndex = tableView.indexPathForSelectedRow?.row {
+                    destination.itemName = appList[blogIndex]
+                    destination.itemPrice = appPriceList[blogIndex]
+                    destination.descriptionString = foodDescription[blogIndex]
                 }
             }
         }
+    }
 }

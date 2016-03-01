@@ -276,15 +276,10 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     
     //Sending the data returned in the outputLabel textview to dataPassed which is a string variable in TableViewController.swift
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-       // print(restaurantsName)
         
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
-            //svc.dataPassed = outputLabel.text
-            
-           // print(restaurantsName)
             svc.restaurantsName = restaurantsName
-            
             svc.menuItems = menuItem
             svc.menuItemPrices = menuItemPrice
             svc.menuItemType = menuItemType
