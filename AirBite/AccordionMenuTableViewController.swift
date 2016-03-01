@@ -13,6 +13,8 @@ class AccordionMenuTableViewController: UITableViewController {
     var foodDescription: [String] = []
     var itemName = String()
     var itemPrice = String()
+    var restaurantsID = String()
+    
     var menuSectionName: [String] = []
     var wholeMenuArray: [AnyObject!] = []
     var appetizers: [AnyObject!] = []
@@ -32,8 +34,20 @@ class AccordionMenuTableViewController: UITableViewController {
     var menuSectionIdentifier = "MenuSection"
     var menuItemIdentifier = "MenuItem"
     
+    var menuItemType: [AnyObject!] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let menuSectionNameWithNoNilValues = menuItemType.flatMap { $0 }
+        
+         var menuSection: [String] = []
+         for type in menuSectionNameWithNoNilValues {
+             menuSection.append(type as! String)
+         }
+        
+        menuSectionName = menuSection
+        //print(wholeMenuArray[0] as! String)
         
         formatArrays()
         

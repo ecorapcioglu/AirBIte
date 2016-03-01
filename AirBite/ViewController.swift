@@ -15,18 +15,11 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     @IBOutlet weak var airlineField: UITextField!               // Airline Text Field
     @IBOutlet weak var flightField: UITextField!                // Flight Number Text Field
     
-    var menuItem: [AnyObject!] = []
-    var menuItemPrice: [AnyObject!] = []
-    var menuItemType: [AnyObject!] = []
-    
-    var appetizers: [AnyObject!] = []
-    var appetizersPrice: [AnyObject!] = []
-    var descriptionsArray: [AnyObject!] = []
-    
     var wholeMenuArray: [AnyObject!] = []
     
     var foodDescription: [String] = []
-    @IBOutlet var restaurantsName: [String] = []
+    var restaurantsName: [String] = []
+    var restaurantsID: [String] = []
     
     private var responseData:NSMutableData?     // Creates dynamic mutable data
     private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
@@ -112,7 +105,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         //Saves only the airport code of each line in airport textfield.
         let airportCode = userInput? .substringToIndex((userInput?.startIndex.advancedBy(3))!)
         
-        let urlString = "https://api.locu.com/v1_0/venue/6e15db9473d02dda8ffe/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+        let urlString = "https://api.locu.com/v1_0/venue/search/?has_menu=TRUE&locality=" + airportCode! + "&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
   
         //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
@@ -189,73 +182,18 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                     let prediction = result["objects"] as! NSArray
                     //let predictions2 = predictions!["menus"] as? NSArray
                     var locations = [String]()
+                    var locations2 = [String]()
                     
                     for dict in prediction {
                         //Extracting the name of the restaurants
                         locations.append(dict["name"] as! String)
-                        
-                        let predictions2 = dict["menus"] as! NSArray
-                        
-                        for dict2 in predictions2{
-                            
-                            let predictions3 = dict2["sections"] as! NSArray
-                            
-                            for dict3 in predictions3{
-                                let predictions4 = dict3["subsections"] as! NSArray
-                                let menuType = dict3["section_name"]
-                                
-                                //print(dict3)
-                                
-                                menuItemType.append(menuType)
-                                
-                                wholeMenuArray.append(dict3)
-                                
-                                
-                                /// this is used to pull just the appetizer section for now. This will be updated to filter per section but for now this is just for the appetizer arrays.
-                                if let firstElem = menuItemType.first {
-                                    for elem in predictions3 {
-                                        if elem["section_name"] as! String == firstElem as! String {
-                                            
-                                            for subSection in elem["subsections"] as! NSArray {
-                                                let subSec = subSection["contents"] as! NSArray
-                                                for food in subSec {
-                                                    let appItem = food["name"]
-                                                    appetizers.append(appItem)
-                                                    let appPrice = food["price"]
-                                                    appetizersPrice.append(appPrice)
-                                                    
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                
-                            for dict4 in predictions4{
-                                let predictions5 = dict4["contents"] as! NSArray
-                                    
-                                for dict5 in predictions5{
-                                    let group = dict5["name"]
-                                    let group2 = dict5["price"]
-                                    let itemDescription = dict5["description"]
-                                    descriptionsArray.append(itemDescription)
-                                        
-                                    menuItem.append(group)
-                                    menuItemPrice.append(group2)
-                                }
-                            }
-                        }
-                    }
+                        locations2.append(dict["id"] as! String)
                 } // this ends predictions
-                
-                let descriptionWithNoNilValues = descriptionsArray.flatMap { $0 }
-                
-                for app in descriptionWithNoNilValues {
-                    foodDescription.append(app as! String)
-                }
                 
                 //Returning the result in a textview called outputLabel.
                 for var index = 0; index < locations.count; ++index{
                     self.restaurantsName.append(locations[index])
+                    self.restaurantsID.append(locations2[index])
                 }
                 
                 // intialize submit button segue here.
@@ -282,13 +220,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         if (segue.identifier == "btnSubmitSegue") {
             let svc = segue.destinationViewController as! TableViewController
             svc.restaurantsName = restaurantsName
-            svc.menuItems = menuItem
-            svc.menuItemPrices = menuItemPrice
-            svc.menuItemType = menuItemType
-            svc.appetizers = appetizers
-            svc.appetizersPrice = appetizersPrice
-            svc.foodDescription = foodDescription
-            svc.wholeMenuArray = wholeMenuArray
+            svc.restaurantsID = restaurantsID
         }
     }
 }
