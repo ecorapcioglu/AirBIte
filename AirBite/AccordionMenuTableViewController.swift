@@ -20,15 +20,15 @@ class AccordionMenuTableViewController: UITableViewController {
     var appetizersPrice: [AnyObject!] = []
     var appPriceList: [String] = []
     
-    var topItems = [String]()
-    var subItems = [[String]]()
+    var menuSectionItems = [String]()
+    var menuItems = [[String]]()
     
     var currentItemsExpanded = [Int]()
     var actualPositions = [Int]()
     var total = 0
     
-    var parentCellIdentifier = "ParentCell"
-    var childCellIdentifier = "ChildCell"
+    var menuSectionIdentifier = "MenuSection"
+    var menuItemIdentifier = "MenuItem"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class AccordionMenuTableViewController: UITableViewController {
         formatArrays()
         
         for (var i = 0; i < menuSectionName.count; i++) {
-            topItems.append(menuSectionName[i])
+            menuSectionItems.append(menuSectionName[i])
             actualPositions.append(-1)
             
             
@@ -45,10 +45,10 @@ class AccordionMenuTableViewController: UITableViewController {
                 items.append(appList[i])
             }
             
-            self.subItems.append(items)
+            self.menuItems.append(items)
         }
         
-        total = topItems.count
+        total = menuSectionItems.count
     }
     
     /// Format the arrays when needed. Remove nil values, convert to strings, etc.
@@ -110,26 +110,26 @@ class AccordionMenuTableViewController: UITableViewController {
         return self.total
     }
     
-    /// Organize the parent and child cell. Set the values for the parent and child cell. The parent cell is the cell containg the resturant menu sections. The child cell contains the menu items that belong to the current section/parent.
+    /// Organize the MenuSection and MenuItem cells.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
+        let menuSection = self.findParentMenuSection(indexPath.row)
+        let currentItemsExpanded = self.currentItemsExpanded.indexOf(menuSection)
         
-        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
+        let isMenuItem = currentItemsExpanded != nil && indexPath.row != self.actualPositions[menuSection]
         
         var cell : UITableViewCell!
         
-        if isChild {
-            cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
+        if isMenuItem {
+            cell = tableView.dequeueReusableCellWithIdentifier(menuItemIdentifier, forIndexPath: indexPath) as UITableViewCell
+            cell.textLabel!.text = self.menuItems[menuSection][indexPath.row - self.actualPositions[menuSection] - 1]
             //cell.backgroundColor = UIColor.greenColor()
         }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-            let topIndex = self.findParent(indexPath.row)
+            cell = tableView.dequeueReusableCellWithIdentifier(menuSectionIdentifier, forIndexPath: indexPath) as UITableViewCell
+            let topIndex = self.findParentMenuSection(indexPath.row)
             
-            cell.textLabel!.text = self.topItems[topIndex]
+            cell.textLabel!.text = self.menuSectionItems[topIndex]
             cell.detailTextLabel?.text = ""
         }
         
@@ -139,11 +139,11 @@ class AccordionMenuTableViewController: UITableViewController {
     /// set up the features when a row is tapped - whether it's a parent row or child row.
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
-        var isChild = idx != nil
+        let menuSections = self.findParentMenuSection(indexPath.row)
+        let currentItemsExpanded = self.currentItemsExpanded.indexOf(menuSections)
+        var isChild = currentItemsExpanded != nil
         
-        if indexPath.row == self.actualPositions[parent]{
+        if indexPath.row == self.actualPositions[menuSections]{
             isChild = false
         }
         
@@ -155,30 +155,30 @@ class AccordionMenuTableViewController: UITableViewController {
         // this is a built in table view featuer - allow multiple insert/delete of rows and sections to be animated simultaneously.
         self.tableView.beginUpdates()
         
-        if let value = self.currentItemsExpanded.indexOf(self.findParent(indexPath.row)) {
+        if let removeIndexValue = self.currentItemsExpanded.indexOf(self.findParentMenuSection(indexPath.row)) {
             
             self.collapseSubItemsAtIndex(indexPath.row)
-            self.actualPositions[parent] = -1
-            self.currentItemsExpanded.removeAtIndex(value)
+            self.actualPositions[menuSections] = -1
+            self.currentItemsExpanded.removeAtIndex(removeIndexValue)
             
-            for (var i = parent + 1; i < self.topItems.count; i++) {
+            for (var i = menuSections + 1; i < self.menuSectionItems.count; i++) {
                 if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] -= self.subItems[parent].count
+                    self.actualPositions[i] -= self.menuItems[menuSections].count
                 }
             }
         }
         else {
-            let parent = self.findParent(indexPath.row)
+            let menuSection = self.findParentMenuSection(indexPath.row)
             
             self.expandItemAtIndex(indexPath.row)
-            self.actualPositions[parent] = indexPath.row
+            self.actualPositions[menuSection] = indexPath.row
             
-            for (var i = parent + 1; i < self.topItems.count; i++) {
+            for (var i = menuSection + 1; i < self.menuSectionItems.count; i++) {
                 if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] += self.subItems[parent].count
+                    self.actualPositions[i] += self.menuItems[menuSection].count
                 }
             }
-            self.currentItemsExpanded.append(parent)
+            self.currentItemsExpanded.append(menuSection)
         }
         
         self.tableView.endUpdates()
@@ -189,62 +189,61 @@ class AccordionMenuTableViewController: UITableViewController {
         
         var indexPaths = [NSIndexPath]()
         
-        let val = self.findParent(index)
+        let val = self.findParentMenuSection(index)
         
-        let currentSubItems = self.subItems[val]
+        let currentMenuItems = self.menuItems[val]
         var insertPos = index + 1
         
-        for (var i = 0; i < currentSubItems.count; i++) {
+        for (var i = 0; i < currentMenuItems.count; i++) {
             indexPaths.append(NSIndexPath(forRow: insertPos++, inSection: 0))
         }
         
         self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        self.total += self.subItems[val].count
+        self.total += self.menuItems[val].count
     }
     
     /// collapses the selected (and currently expanded) parent cell.
     private func collapseSubItemsAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
-        let parent = self.findParent(index)
+        let menuSections = self.findParentMenuSection(index)
         
-        for (var i = index + 1; i <= index + self.subItems[parent].count; i++ ){
+        for (var i = index + 1; i <= index + self.menuItems[menuSections].count; i++ ){
             indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
         }
         
         self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        self.total  -= self.subItems[parent].count
+        self.total  -= self.menuItems[menuSections].count
     }
     
     /// sets the height and width of the cells based on if child cells are showing.
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
+        let menuSections = self.findParentMenuSection(indexPath.row)
+        let currentItemsExpanded = self.currentItemsExpanded.indexOf(menuSections)
         
-        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
+        let isMenuItem = currentItemsExpanded != nil && indexPath.row != self.actualPositions[menuSections]
         
-        if (isChild) {
+        if (isMenuItem) {
             return 44.0
         }
         return 64.0
     }
     
-    /// finds the index at which the parent cell is located.
-    private func findParent(index : Int) -> Int {
+    /// finds the index at which the parent menu section cell is located.
+    private func findParentMenuSection(index : Int) -> Int {
         
-        var parent = 0
+        var menuSection = 0
         var i = 0
         
         while (true) {
-            
             if (i >= index) {
                 break
             }
             
             // if is opened
-            if let _ = self.currentItemsExpanded.indexOf(parent) {
-                i += self.subItems[parent].count + 1
+            if let _ = self.currentItemsExpanded.indexOf(menuSection) {
+                i += self.menuItems[menuSection].count + 1
                 
                 if (i > index) {
                     break
@@ -254,10 +253,10 @@ class AccordionMenuTableViewController: UITableViewController {
                 ++i
             }
             
-            ++parent
+            ++menuSection
         }
         
-        return parent
+        return menuSection
     }
     
     /// prepare for the segue to the description page. Pass the necessary values to the description page.
