@@ -10,27 +10,30 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    
+    //Array that holds the food description without null values
     var foodDescription: [String] = []
+    //Array that holds the restaurants' name
     var restaurantsName: [String] = []
+    //Array that holds the gate number
+    var restaurantsGate: [String] = []
+    //Array that holds the restaurants' id
     var restaurantsID: [String] = []
+    //String variable that holds one restaurant id
     var selectedRestaurantID = String()
-    
+    //Array that holds section names from restaurant's menu
     var menuItemType: [AnyObject!] = []
+    //Array that holds a dictionary from the API
     var wholeMenuArray: [AnyObject!] = []
+    //Array that holds the food description with null values
     var descriptionsArray: [AnyObject!] = []
-    
-    private var responseData:NSMutableData?     // Creates dynamic mutable data
-    private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
+    // Creates dynamic mutable data
+    private var responseData:NSMutableData?
+    // Load the contents of a URL by providing a URL request object
+    private var connection:NSURLConnection?
 
-    @IBOutlet weak var text: UITextView!
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         
         
@@ -41,13 +44,13 @@ class TableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -57,8 +60,7 @@ class TableViewController: UITableViewController {
     /// is set in numberOfSectionInTableView function.
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // we want to return the number of rows based on how many values are in the restaurants array.
-        return restaurantsName
-            .count
+        return restaurantsName.count
     }
     
     // This returns the title of the section
@@ -66,20 +68,28 @@ class TableViewController: UITableViewController {
         return "Restaurants"
     }
     
+    //This returns the name of the restaurants
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("labelCell", forIndexPath: indexPath)
 
         // Configure the cell...
         // return a value for each cell (text value) based on the values in the restuarnts array.
-        cell.textLabel?.text = restaurantsName[indexPath.row]
+        cell.textLabel?.text = restaurantsName[indexPath.row] + "  (" + restaurantsGate[indexPath.row] + ")"
         
         return cell
     }
     
-    private func restaurantAPI(){
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let blogIndex = tableView.indexPathForSelectedRow?.row
+        selectedRestaurantID = restaurantsID[blogIndex!]
+        restaurantAPI()
+        print("Testing")
         
-        let urlString = "https://api.locu.com/v1_0/venue/" + selectedRestaurantID +   "/?has_menu=TRUE&locality=DFW&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
+    }
+    
+    private func restaurantAPI(){
+        
+        let urlString = "https://api.locu.com/v1_0/venue/" + selectedRestaurantID + "/?has_menu=TRUE&locality=DFW&api_key=42c74053d1a1b2377c716af18da0b235d260be5b"
         
         //Connecting to the API
         let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
@@ -87,7 +97,6 @@ class TableViewController: UITableViewController {
             let urlRequest = NSURLRequest(URL: url!)
             self.connection = NSURLConnection(request: urlRequest, delegate: self)
         }
-        
     }
     
     
@@ -108,9 +117,7 @@ class TableViewController: UITableViewController {
                 //Extracting data from the "airports" array.
                 if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
                     
-            
-                    
-                    //Same as above, extracting data from the objects array or dictionary.
+                    //Extracting data from the objects array or dictionary.
                     let prediction = result["objects"] as! NSArray
                     
                     for dict in prediction {
@@ -126,7 +133,6 @@ class TableViewController: UITableViewController {
                                 let menuType = dict3["section_name"]
                                 
                                 menuItemType.append(menuType)
-                                
                                 wholeMenuArray.append(dict3)
                                 
                                 
@@ -156,6 +162,11 @@ class TableViewController: UITableViewController {
                         foodDescription.append(app as! String)
                     }
                     
+                    self.performSegueWithIdentifier("restaurantSelectSegue", sender: self)
+                    
+                    wholeMenuArray.removeAll()
+                    menuItemType.removeAll()
+                    
                     return
                 }
             }
@@ -174,11 +185,8 @@ class TableViewController: UITableViewController {
                         menuTableViewController.wholeMenuArray = wholeMenuArray
                         menuTableViewController.menuItemType = menuItemType
                         menuTableViewController.restaurantsID = restaurantsID[blogIndex]
-                        selectedRestaurantID = restaurantsID[blogIndex]
-                        restaurantAPI()
-    
                     }
                 }
             }
-        }
+    }
 }

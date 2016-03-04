@@ -117,11 +117,11 @@
 		C244A88B1BF1732A000CF306 /* AirBite */ = {
 			isa = PBXGroup;
 			children = (
-				C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */,
 				9081C15F1C7CA609007ACA5C /* AirBite.entitlements */,
 				C244A8901BF1732A000CF306 /* Main.storyboard */,
 				C244A88E1BF1732A000CF306 /* ViewController.swift */,
 				90C810B31C60191D008624CE /* TableViewController.swift */,
+				C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */,
 				9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */,
 				90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */,
 				C244A8931BF1732A000CF306 /* Assets.xcassets */,

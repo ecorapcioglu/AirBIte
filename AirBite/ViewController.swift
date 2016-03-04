@@ -10,23 +10,30 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDataDelegate {
     
-    @IBOutlet weak var outputLabel: UITextView!                 // Textview used for testing purposes
-    @IBOutlet weak var airportField: AutoCompleteTextField!     // Airport Text Field
-    @IBOutlet weak var airlineField: UITextField!               // Airline Text Field
-    @IBOutlet weak var flightField: UITextField!                // Flight Number Text Field
-    
+    // Airport Text Field created from AutoCompleteTextField.swift
+    @IBOutlet weak var airportField: AutoCompleteTextField!
+    // Airline Text Field
+    @IBOutlet weak var airlineField: UITextField!
+    // Flight Number Text Field
+    @IBOutlet weak var flightField: UITextField!
+    //Array that holds restaurants' names
     var restaurantsName: [String] = []
+    //Array that holds restaurants' unique ids
     var restaurantsID: [String] = []
-    
-    private var responseData:NSMutableData?     // Creates dynamic mutable data
-    private var connection:NSURLConnection?     // Load the contents of a URL by providing a URL request object
-    
+    //Array that holds the gate number
+    var restaurantsGate: [String] = []
+    // Creates dynamic mutable data
+    private var responseData:NSMutableData?
+    // Load the contents of a URL by providing a URL request object
+    private var connection:NSURLConnection?
     
     //Airport API Url & Keys
     private let airportCode = ""
     private let airportAppId = "b3bc8082"
     private let airportAppKey = "7f2044891f2c25f3fadd4b7af9505450"
     private let airportURLString = "https://api.flightstats.com/flex/airports/rest/v1/json/iata/"
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +100,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         airportField.autoCompleteAttributes = attributes
     }
     
+    
     //Action for the Button
     @IBAction func buttonPressed(sender: AnyObject) {
         
@@ -110,8 +118,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             let urlRequest = NSURLRequest(URL: url!)
             self.connection = NSURLConnection(request: urlRequest, delegate: self)
         }
-        
     }
+    
     
     private func handleTextFieldInterfaces(){
         airportField.onTextChange = {[weak self] text in
@@ -122,8 +130,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                 }
                 
                 let urlString = self!.airportURLString + text + "?appId=" + self!.airportAppId + "&appKey=" + self!.airportAppKey
-                
-                
+        
                 //Connecting to the API
                 let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
                 
@@ -180,21 +187,26 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                     //let predictions2 = predictions!["menus"] as? NSArray
                     var locations = [String]()
                     var locations2 = [String]()
+                    var locations3 = [String]()
                     
                     for dict in prediction {
                         //Extracting the name of the restaurants
                         locations.append(dict["name"] as! String)
                         locations2.append(dict["id"] as! String)
+                        locations3.append(dict["street_address"] as! String)
                 } // this ends predictions
                 
                 //Returning the result in a textview called outputLabel.
                 for var index = 0; index < locations.count; ++index{
                     self.restaurantsName.append(locations[index])
                     self.restaurantsID.append(locations2[index])
+                    self.restaurantsGate.append(locations3[index])
                 }
                 
                 // intialize submit button segue here.
                 self.performSegueWithIdentifier("btnSubmitSegue", sender: self)
+                
+                restaurantsName.removeAll()
                 
                 return
                 }
@@ -218,6 +230,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             let svc = segue.destinationViewController as! TableViewController
             svc.restaurantsName = restaurantsName
             svc.restaurantsID = restaurantsID
+            svc.restaurantsGate = restaurantsGate
         }
     }
 }

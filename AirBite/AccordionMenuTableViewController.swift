@@ -9,6 +9,7 @@ import UIKit
 
 class AccordionMenuTableViewController: UITableViewController {
     
+    
     var descriptionString = String()
     var foodDescription: [String] = []
     var restaurantsID = String()
