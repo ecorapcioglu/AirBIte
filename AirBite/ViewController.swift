@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDataDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDataDelegate, CLLocationManagerDelegate {
     
     // Airport Text Field created from AutoCompleteTextField.swift
     @IBOutlet weak var airportField: AutoCompleteTextField!
@@ -27,6 +28,12 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     // Load the contents of a URL by providing a URL request object
     private var connection:NSURLConnection?
     
+    private var manager = CLLocationManager()
+    private var latitude = String()
+    private var longitude = String()
+    var airportClassification: [Int] = []
+    var airportNames: [String] = []
+    
     //Airport API Url & Keys
     private let airportCode = ""
     private let airportAppId = "b3bc8082"
@@ -37,6 +44,11 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        
         self.airportField.delegate = self;
         self.airlineField.delegate = self;
         self.flightField.delegate = self;
@@ -46,6 +58,41 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
     }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
+        if status == .AuthorizedWhenInUse {
+            manager.startUpdatingLocation()
+        }
+        else {
+            manager.stopUpdatingLocation()
+        }
+    }
+    
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        latitude = "\(manager.location!.coordinate.latitude)"
+        longitude = "\(manager.location!.coordinate.longitude)"
+        //label3.text = "\(manager.location!.horizontalAccuracy)"
+        
+    }
+    
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        
+        let alert = UIAlertController(title: "Error", message: "Error \(error.code)", preferredStyle: .Alert)
+        let actionOk = UIAlertAction(title: "Ok", style: .Default, handler: {
+            action in
+            //..
+        })
+        
+        
+        alert.addAction(actionOk)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
     
     
     override func didReceiveMemoryWarning() {
@@ -168,17 +215,25 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                         
                         for dict in predictions as! [NSDictionary]{
                             //Extracting iata code and name of the Airport from airports dictionary.
-                            locations.append(dict["iata"] as! String)
+                            locations.append(dict["faa"] as! String)
                             locations2.append(dict["name"] as! String)
+                            airportClassification.append(dict["classification"] as! Int)
                         }
                         
                         //Formatting and appendng the iata code array and the name array into a new formatted one.
                         for var index = 0; index < locations.count; ++index {
                             locations3.append(locations[index] + "  " + locations2[index])
+                            if(airportClassification[index] <= 3 && airportNames.count < 1){
+                                airportNames.append(locations3[index])
+                                
+                            }
                         }
                         
                         //Returning the formatted array into the AutoCompleteStrings from the airport field.
                         self.airportField.autoCompleteStrings = locations3
+                        //self.airportField.text = airportNames[0]
+                        
+                        
                         return
                     }
                 
@@ -222,6 +277,34 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
     func dismissKeyboard(){
         self.airportField.resignFirstResponder()
     }
+    
+    
+    
+    
+    @IBAction func locationServicePressed(sender: AnyObject) {
+        
+        print(latitude)
+        print(longitude)
+        //print(locations3)
+        
+        
+        
+        let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/withinRadius/" + longitude + "/" + latitude + "/17?appId=b3bc8082&appKey=7f2044891f2c25f3fadd4b7af9505450"
+        
+        //let urlString = self.airportURLString + longitude + "/" + latitude + "/50?appId=" + self.airportAppId + "&appKey=" + self.airportAppKey
+        
+        //Connecting to the API
+        let url = NSURL(string: (urlString as NSString).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        
+        if url != nil{
+            let urlRequest = NSURLRequest(URL: url!)
+            self.connection = NSURLConnection(request: urlRequest, delegate: self)
+        }
+
+    }
+    
+    
+    
     
     //Sending the data returned in the outputLabel textview to dataPassed which is a string variable in TableViewController.swift
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
