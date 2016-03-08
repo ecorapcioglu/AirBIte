@@ -21,12 +21,16 @@ class AccordionMenuTableViewController: UITableViewController {
     
     var menuDescriptionItems = [[String]]()
     
+    var menuPrice = [[String]]()
+    
     var currentItemsExpanded = [Int]()
     var actualPositions = [Int]()
     var total = 0
     
     var menuSectionIdentifier = "MenuSection"
     var menuItemIdentifier = "MenuItem"
+    
+    var arrayToDelete = 0
     
     var menuItemType: [AnyObject!] = []
     
@@ -42,22 +46,27 @@ class AccordionMenuTableViewController: UITableViewController {
          }
         
         menuSectionName = menuSection
-        //print(wholeMenuArray[0] as! String)
-        
-       // formatArrays()
-        
+       
         for (var i = 0; i < menuSectionName.count; i++) {
-            menuSectionItems.append(menuSectionName[i])
-            actualPositions.append(-1)
+            
+            // we want to remove the empty string values since these persent blank rows in data.
+            if (menuSectionName[i] != ""){
+                menuSectionItems.append(menuSectionName[i])
+                actualPositions.append(-1)
+            }
+            
+            if (menuSectionName[i] == "") {
+                arrayToDelete = i
+            }
             
             var foodItems: [AnyObject!] = []
             
             var desciprtionItems: [AnyObject!] = []
+            var priceItems: [AnyObject!] = []
     
             for menu in wholeMenuArray {
                 if menu["section_name"] as! String == menuSectionName[i]{
                     let subSections = menu["subsections"] as! NSArray
-                    //print(subSections)
                     for subSection in subSections {
                         let foodContents = subSection["contents"] as! NSArray
                         for foodItem in foodContents {
@@ -68,7 +77,12 @@ class AccordionMenuTableViewController: UITableViewController {
                             
                             if let description = foodItem["description"] {
                                 let descriptionItemWithNoNils = description.flatMap { $0 }
-                                desciprtionItems.append(descriptionItemWithNoNils)
+                                    desciprtionItems.append(descriptionItemWithNoNils)
+                            }
+                            
+                            if let price = foodItem["price"] {
+                                let priceWithNoNils = price.flatMap { $0 }
+                                priceItems.append(priceWithNoNils)
                             }
                         }
                     }
@@ -81,7 +95,10 @@ class AccordionMenuTableViewController: UITableViewController {
                 items.append(foodItemNoNil[i] as! String)
             }
             
-            self.menuItems.append(items)
+            // we want to remove the empty arrays since these persent blank rows in data. This keeps the menuItems "in line" with menuSectionItems
+            if (items != []) {
+                self.menuItems.append(items)
+            }
             
             let desciptionItemNoNil = desciprtionItems.flatMap { $0 }
             var descItems = [String]()
@@ -90,55 +107,24 @@ class AccordionMenuTableViewController: UITableViewController {
             }
             
             self.menuDescriptionItems.append(descItems)
+            
+            let priceWithNoNil = priceItems.flatMap { $0 }
+            var price = [String]()
+            for (var i = 0; i < priceWithNoNil.count; i++) {
+                price.append(priceWithNoNil[i] as! String)
+            }
+            
+            self.menuPrice.append(price)
+
+        }
+        
+        if (arrayToDelete > 0) {
+            self.menuDescriptionItems.removeAtIndex(arrayToDelete)
+            self.menuPrice.removeAtIndex(arrayToDelete)
         }
         
         total = menuSectionItems.count
     }
-    
-    /// Format the arrays when needed. Remove nil values, convert to strings, etc.
-//    func formatArrays()
-//    {
-//        let appetizersWithNoNilValues = appetizers.flatMap { $0 }
-//        var apps: [String] = []
-//        for app in appetizersWithNoNilValues {
-//            apps.append(app as! String)
-//        }
-//        appList = removeDuplicates(apps)
-//        
-//        
-//        let appetizersPriceWithNoNilValues = appetizersPrice.flatMap { $0 }
-//        var appsPrice: [String] = []
-//        for app in appetizersPriceWithNoNilValues {
-//            appsPrice.append(app as! String)
-//        }
-//        appPriceList = removeDuplicates(appsPrice)
-//        
-//        for _ in appList {
-//            if appList.count != appPriceList.count {
-//                appPriceList.append("N/A")
-//            }
-//        }
-//    }
-    
-    /// Removed dupicate values from the array passed in.
-    func removeDuplicates(array: [String]) -> [String] {
-        var encountered = Set<String>()
-        var result: [String] = []
-        for value in array {
-            if encountered.contains(value) {
-                // Do not add a duplicate element.
-            }
-            else {
-                // Add value to the set.
-                encountered.insert(value)
-                // ... Append the value.
-                result.append(value)
-            }
-        }
-        
-        return result
-    }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -185,18 +171,7 @@ class AccordionMenuTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let menuSections = self.findParentMenuSection(indexPath.row)
-        let currentItemsExpanded = self.currentItemsExpanded.indexOf(menuSections)
-        var isChild = currentItemsExpanded != nil
-        
-        if indexPath.row == self.actualPositions[menuSections]{
-            isChild = false
-        }
-        
-//        if (isChild) {
-//            NSLog("A child was tapped!!!");
-//            return;
-//        }
-        
+
         // this is a built in table view featuer - allow multiple insert/delete of rows and sections to be animated simultaneously.
         self.tableView.beginUpdates()
         
@@ -270,9 +245,9 @@ class AccordionMenuTableViewController: UITableViewController {
         let isMenuItem = currentItemsExpanded != nil && indexPath.row != self.actualPositions[menuSections]
         
         if (isMenuItem) {
-            return 44.0
+            return 54.0
         }
-        return 64.0
+        return 84.0
     }
     
     /// finds the index at which the parent menu section cell is located.
@@ -310,10 +285,23 @@ class AccordionMenuTableViewController: UITableViewController {
             if let destination = segue.destinationViewController as? DescriptionViewController {
                 if let blogIndex = tableView.indexPathForSelectedRow?.row {
                     
-                    destination.blogIndex = blogIndex
-                    destination.itemName = menuItems
-                    destination.descriptionString = menuDescriptionItems//foodDescription[blogIndex]
+                    // this variable gets the location of the parent/menu section
+                    let menuSections = self.findParentMenuSection(blogIndex)
+                    // this variable gets the location of the menu item selected under the menu section.
+                    let menuItemSectionsIndex = (blogIndex - self.actualPositions[menuSections] - 1) as Int
                     
+                    if (menuDescriptionItems[menuSections].count == 0)
+                    {
+                        menuDescriptionItems[menuSections].append("Please ask for description")
+                    }
+                    
+                    if (menuPrice[menuSections].count == 0) {
+                        menuPrice[menuSections].append("Price not currently avaliable")
+                    }
+                    
+                    destination.itemName = menuItems[menuSections][menuItemSectionsIndex]
+                    destination.descriptionString = menuDescriptionItems[menuSections][menuItemSectionsIndex]
+                    destination.itemPrice = menuPrice[menuSections][menuItemSectionsIndex]
                 }
             }
         }
