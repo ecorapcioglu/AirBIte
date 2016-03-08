@@ -35,6 +35,7 @@ class AccordionMenuTableViewController: UITableViewController {
     var menuItemType: [AnyObject!] = []
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         print(restaurantsID)
         
@@ -124,6 +125,13 @@ class AccordionMenuTableViewController: UITableViewController {
         }
         
         total = menuSectionItems.count
+        
+    }
+    
+    /// reloads the menu page after the back button is clicked.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        self.tableView.reloadData(); // to reload selected cell
     }
     
     override func didReceiveMemoryWarning() {
