@@ -215,7 +215,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
                         
                         for dict in predictions as! [NSDictionary]{
                             //Extracting iata code and name of the Airport from airports dictionary.
-                            locations.append(dict["faa"] as! String)
+                            locations.append(dict["fs"] as! String)
                             locations2.append(dict["name"] as! String)
                             airportClassification.append(dict["classification"] as! Int)
                         }
@@ -289,7 +289,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
         
         
         
-        let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/withinRadius/" + longitude + "/" + latitude + "/17?appId=b3bc8082&appKey=7f2044891f2c25f3fadd4b7af9505450"
+        let urlString = "https://api.flightstats.com/flex/airports/rest/v1/json/withinRadius/" + longitude + "/" + latitude + "/25?appId=b3bc8082&appKey=7f2044891f2c25f3fadd4b7af9505450"
         
         //let urlString = self.airportURLString + longitude + "/" + latitude + "/50?appId=" + self.airportAppId + "&appKey=" + self.airportAppKey
         
@@ -300,7 +300,48 @@ class ViewController: UIViewController, UITextFieldDelegate, NSURLConnectionData
             let urlRequest = NSURLRequest(URL: url!)
             self.connection = NSURLConnection(request: urlRequest, delegate: self)
         }
-
+        
+        
+        if let data = responseData{
+            do{
+                //Extracting data from the "airports" array.
+                if let result: NSDictionary = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary{
+                    
+                    if let predictions = result["airports"] as? NSArray{
+                        
+                        //Arrays for storing the data extracted.
+                        var locations = [String]()
+                        var locations2 = [String]()
+                        var locations3 = [String]()
+                        
+                        for dict in predictions as! [NSDictionary]{
+                            //Extracting iata code and name of the Airport from airports dictionary.
+                            locations.append(dict["fs"] as! String)
+                            locations2.append(dict["name"] as! String)
+                            airportClassification.append(dict["classification"] as! Int)
+                        }
+                        
+                        //Formatting and appendng the iata code array and the name array into a new formatted one.
+                        for var index = 0; index < locations.count; ++index {
+                            locations3.append(locations[index] + "  " + locations2[index])
+                            if(airportClassification[index] <= 3 && airportNames.count < 1){
+                                airportNames.append(locations3[index])
+                                
+                            }
+                        }
+                        
+                        //Returning the formatted array into the AutoCompleteStrings from the airport field.
+                        //self.airportField.autoCompleteStrings = locations3
+                        self.airportField.text = airportNames[0]
+                        
+                        return
+                    }
+                }
+            }
+            catch let error as NSError{
+                print("Error: \(error.localizedDescription)")
+            }
+        }
     }
     
     
