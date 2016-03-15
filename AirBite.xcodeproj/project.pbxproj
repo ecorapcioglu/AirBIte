@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		900270491C49606D00CB65E8 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */; };
+		903133EC1C98BB6900CB0754 /* CustomPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903133EB1C98BB6900CB0754 /* CustomPaymentViewController.swift */; };
 		90429A6F1C7CA6E800967EF3 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */; };
 		9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */; };
 		90C810B41C60191D008624CE /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C810B31C60191D008624CE /* TableViewController.swift */; };
@@ -19,6 +20,7 @@
 		C244A8A21BF1732A000CF306 /* AirBiteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8A11BF1732A000CF306 /* AirBiteTests.swift */; };
 		C244A8AD1BF1732A000CF306 /* AirBiteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C244A8AC1BF1732A000CF306 /* AirBiteUITests.swift */; };
 		C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B966BE1C84F7F40009BD1E /* AccordionMenuTableViewController.swift */; };
+		C80695E9AD32A3D30B70FBD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4214CF0860A8DB6C62921E25 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,11 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4214CF0860A8DB6C62921E25 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutoCompleteTextField.swift; path = AirBite/AutoCompleteTextField.swift; sourceTree = "<group>"; };
+		903133EA1C98B83000CB0754 /* AirBite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AirBite-Bridging-Header.h"; sourceTree = "<group>"; };
+		903133EB1C98BB6900CB0754 /* CustomPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentViewController.swift; sourceTree = "<group>"; };
 		90429A6B1C7CA6E800967EF3 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		9081C15D1C7BCE10007ACA5C /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		9081C15F1C7CA609007ACA5C /* AirBite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirBite.entitlements; sourceTree = "<group>"; };
 		90C810B31C60191D008624CE /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		9CAA163C5262211707A953D6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B5FD74A7034F6D4871C6A198 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C244A8891BF1732A000CF306 /* AirBite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirBite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C244A88C1BF1732A000CF306 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C244A88E1BF1732A000CF306 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C80695E9AD32A3D30B70FBD0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +93,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		640407B72DAE89328B368F16 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9CAA163C5262211707A953D6 /* Pods.debug.xcconfig */,
+				B5FD74A7034F6D4871C6A198 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9002704A1C49698100CB65E8 /* AutoCompleteTextField */ = {
 			isa = PBXGroup;
 			children = (
 				900270481C49606D00CB65E8 /* AutoCompleteTextField.swift */,
 			);
 			name = AutoCompleteTextField;
+			sourceTree = "<group>";
+		};
+		BC3D1B9DCBE105FBA5024B7D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4214CF0860A8DB6C62921E25 /* libPods.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C244A8801BF1732A000CF306 = {
@@ -101,6 +126,8 @@
 				C244A8A01BF1732A000CF306 /* AirBiteTests */,
 				C244A8AB1BF1732A000CF306 /* AirBiteUITests */,
 				C244A88A1BF1732A000CF306 /* Products */,
+				640407B72DAE89328B368F16 /* Pods */,
+				BC3D1B9DCBE105FBA5024B7D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +144,8 @@
 		C244A88B1BF1732A000CF306 /* AirBite */ = {
 			isa = PBXGroup;
 			children = (
+				903133EB1C98BB6900CB0754 /* CustomPaymentViewController.swift */,
+				903133EA1C98B83000CB0754 /* AirBite-Bridging-Header.h */,
 				9081C15F1C7CA609007ACA5C /* AirBite.entitlements */,
 				C244A8901BF1732A000CF306 /* Main.storyboard */,
 				C244A88E1BF1732A000CF306 /* ViewController.swift */,
@@ -157,9 +186,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C244A8B11BF1732A000CF306 /* Build configuration list for PBXNativeTarget "AirBite" */;
 			buildPhases = (
+				23A29A4089312DFA510B3657 /* Check Pods Manifest.lock */,
 				C244A8851BF1732A000CF306 /* Sources */,
 				C244A8861BF1732A000CF306 /* Frameworks */,
 				C244A8871BF1732A000CF306 /* Resources */,
+				970C1756EF79E688C09BB841 /* Embed Pods Frameworks */,
+				D2C1D3DCD853B09C267E425D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -282,6 +314,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		23A29A4089312DFA510B3657 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		970C1756EF79E688C09BB841 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2C1D3DCD853B09C267E425D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C244A8851BF1732A000CF306 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -291,6 +371,7 @@
 				9081C15E1C7BCE10007ACA5C /* DescriptionViewController.swift in Sources */,
 				90429A6F1C7CA6E800967EF3 /* PaymentViewController.swift in Sources */,
 				C244A88F1BF1732A000CF306 /* ViewController.swift in Sources */,
+				903133EC1C98BB6900CB0754 /* CustomPaymentViewController.swift in Sources */,
 				C244A88D1BF1732A000CF306 /* AppDelegate.swift in Sources */,
 				90C810B41C60191D008624CE /* TableViewController.swift in Sources */,
 				C2B966BF1C84F7F40009BD1E /* AccordionMenuTableViewController.swift in Sources */,
@@ -431,6 +512,7 @@
 		};
 		C244A8B21BF1732A000CF306 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CAA163C5262211707A953D6 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AirBite/AirBite.entitlements;
@@ -448,6 +530,7 @@
 		};
 		C244A8B31BF1732A000CF306 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5FD74A7034F6D4871C6A198 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AirBite/AirBite.entitlements;
